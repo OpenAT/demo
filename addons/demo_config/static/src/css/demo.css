@@ -133,6 +133,7 @@ body[data-rootcatid="2"] #products_grid_before {
 body[data-rootcatid="2"] #products_grid .oe_product {
     width: 180px;
     height: 180px;
+    margin-right: 5px;
 }
 body[data-rootcatid="2"] oe_product oe_grid oe-height-2 {
     margin-right: 10px;
