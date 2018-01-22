@@ -1,0 +1,20 @@
+#wsd_checkout_form .shipping-fields .form-control-feedback, #wsd_checkout_form .billing-fields .form-control-feedback {
+    right: 22px !important;
+}
+#wsd_checkout_form .form-control-feedback {
+    top: 27px !important;
+}
+
+/* Checkout Page neu ENDE */
+/* Iframe Modal Box behavior */
+
+#wsd_checkout_form .form-group {
+        position: relative !important;
+}
+.modal-open .modal {
+        overflow: visible !important;
+}
+.modal {
+    position: absolute !important;
+}
+/* BODY SCROLL AFTER ADDING MODAL BEHAVIOR -- STILL NEED TESTS */

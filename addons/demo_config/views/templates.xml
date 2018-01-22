@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+
+    <!-- CUSTOM BOOTSTRAP THEME FOR Amnesty International -->
+    <!-- HINT: http://getbootstrap.com/customize -->
+    <template id="demo_theme_option" inherit_id="website.themes" name="demo Theme Option">
+        <xpath expr='//div[@id="themes-list"]' position="inside">
+            <div class="col-md-4">
+                <div class="well text-center">
+                    <div class="image">
+                        <img class="img-responsive" src="/demo_config/static/src/img/demo_theme_thumbnail.jpg"
+                             alt="DEMO"/>
+                    </div>
+                    <div class="options">
+                        <h3>DEMO</h3>
+                        <p>Dadi Demo</p>
+                        <a class="btn btn-info" href="/website/theme_change?theme_id=website.theme_demo">Apply</a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- load demo theme css and js -->
+    <template id="website.theme_demo" name="DEMO" inherit_id="website.theme" active="False" customize_show="True">
+        <xpath expr="//link[@id='bootstrap_css']" position="replace">
+            <link rel='stylesheet' href='/demo_config/static/src/css/bootstrap_demo/css/bootstrap.min.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/demo_config/static/src/css/bootstrap_demo/css/bootstrap-theme.min.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/demo_config/static/src/css/bootstrap_demo/general_basic_corrections.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/demo_config/static/src/css/demo.css' t-ignore="true"/>
+        </xpath>
+    </template>
+
+    <template id="demo_product_grid_description" inherit_id="website_sale.products_description">
+        <xpath expr="//div[@class='text-info oe_subdescription']" position="replace">
+           <div class="text-info oe_subdescription" contenteditable="false">
+             <div itemprop="description" t-field="product.description">
+             </div>
+           </div>
+        </xpath>
+    </template>
+
+    <!-- GOOGLE WEBMASTER TOOLS -->
+    <!--
+    <template id="google_webmastertools_site_verification" inherit_id="website.layout" name="Google Webmastertools site verification">
+        <xpath expr="//head//title" position="after">
+            <meta name="google-site-verification" content="google1234567890.html"/>
+        </xpath>
+    </template>
+    -->
+
+</data></openerp>

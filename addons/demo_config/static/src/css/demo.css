@@ -1,0 +1,139 @@
+body {
+    color: black;
+}
+
+body .oe_website_sale h1 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+#wsd-checkout-box .crowdfunding h1, #wsd-checkout-box .crowdfunding .h1 {
+    font-size: 36px !important;
+}
+.css_quantity .input-group-addon {
+    border-radius: 0px !important;
+}
+.payment_interval_ids .text-muted {
+  margin-left: 12%
+}
+.payment_interval_ids hr {
+
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+.arbitrary_price .input-group-addon {
+    border-radius: 0px;
+}
+h3.amount_title {
+    text-align: center !important;
+}
+/*
+.text-left {
+    text-align: center !important;
+}*/
+#add_to_cart.btn-primary {
+ width: 50%;
+}
+#description_sale {
+    margin-top: 10px;
+}
+
+.webshop_download_file {
+  width: 40%;
+}
+.progress {
+    Background-image: none;
+    background-color: #f5f5f5;
+}
+.btn-default {
+    background-image: none;
+    border-radius: 0px;
+    background-color: #f5f5f5;
+}
+.btn-primary {
+        background-image: none;
+    background-color: #337ab7;
+        border-radius: 0px;
+
+}
+.btn {
+    border-radius: 0px;
+}
+.input-group-addon {
+    border-radius: 0px;
+}
+.form-inline .form-group {
+    margin-top: 10px;
+}
+.input-group-lg>.form-control {
+    height: 48px;
+}
+#wsd-checkout-box > div > div.panel-body.text-center > form > div > h4.payment_interval_ids.payment_interval_lines_ids.text-left > div {
+    margin-left: 33%;
+}
+#product_desc_short_top {
+    background-color: #229b79;
+    margin-bottom: 5px;
+    color: white;
+
+}
+#product_desc_short_bottom {
+        background-color: #229b79;
+    margin-bottom: 5px;
+    color: white;
+}
+#product_full_description {
+        background-color: #0e7558;
+    margin-bottom: 15px;
+            color: white;
+
+}
+#product_full_description .text-muted {
+        color: white;
+
+}
+#product_detail > div:nth-child(1) > div.col-sm-12 {
+    display: none;
+}
+
+/* OnePageCheckout */
+.ppt_opc #wsd-checkout-box img.product-image {
+    width: auto !important;
+}
+.ppt_opc .arbitrary_price .form-group.price_donate {
+  margin-top: 0px;
+}
+
+#website_sale_donate > div > div.row.ppt_opc-top > div > div:nth-child(1) > div.col-sm-12 {
+    display: none;
+}
+
+/*Standard Layout */
+#product_detail > div:nth-child(2) > div.col-sm-5.col-md-5.col-lg-4.col-lg-offset-1 > form > div > div.product_price.mt16 > h4.oe_price_h4.css_editable_mode_hidden.decimal_precision {
+    text-align: center;
+}
+
+#product_detail > div:nth-child(2) > div.col-sm-5.col-md-5.col-lg-4.col-lg-offset-1 > form > div > div.css_quantity.input-group.input-group-lg.oe_website_spinner {
+margin-left: 30%;
+}
+#add_to_cart.btn-primary {
+    width: 50%;
+    margin-left: 25%;
+}
+#product_detail > div:nth-child(2) > div.col-sm-5.col-md-5.col-lg-4.col-lg-offset-1 > h1 {
+    text-align: center;
+}
+
+/* WEBSHOP GRIP CATEGORY BIO KALENDER */
+
+/* Hide category navigation menu and regain full width */
+body[data-rootcatid="2"] #products_grid_before {
+    display: none
+}
+body[data-rootcatid="2"] #products_grid .oe_product {
+    width: 180px;
+    height: 180px;
+}
+body[data-rootcatid="2"] oe_product oe_grid oe-height-2 {
+    margin-right: 10px;
+}

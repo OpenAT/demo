@@ -21,7 +21,8 @@ Customer configuration for the instance demo
     'depends': [
         'fsonline',
     ],
-    'data': [],
+    'data': [
+        'views/templates.xml'
+    ],
 }
 
-    
