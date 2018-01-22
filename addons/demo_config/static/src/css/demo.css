@@ -71,27 +71,7 @@ h3.amount_title {
 #wsd-checkout-box > div > div.panel-body.text-center > form > div > h4.payment_interval_ids.payment_interval_lines_ids.text-left > div {
     margin-left: 33%;
 }
-#product_desc_short_top {
-    background-color: #229b79;
-    margin-bottom: 5px;
-    color: white;
 
-}
-#product_desc_short_bottom {
-        background-color: #229b79;
-    margin-bottom: 5px;
-    color: white;
-}
-#product_full_description {
-        background-color: #0e7558;
-    margin-bottom: 15px;
-            color: white;
-
-}
-#product_full_description .text-muted {
-        color: white;
-
-}
 #product_detail > div:nth-child(1) > div.col-sm-12 {
     display: none;
 }
