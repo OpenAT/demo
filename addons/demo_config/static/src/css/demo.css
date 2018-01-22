@@ -138,6 +138,6 @@ body[data-rootcatid="2"] #products_grid .oe_product {
 body[data-rootcatid="2"] oe_product oe_grid oe-height-2 {
     margin-right: 10px;
 }
-body[data-rootcatid="2"] #products_grid .oe_website_sale h5 {
+body[data-rootcatid="2"] .oe_website_sale #products_grid h5 {
     text-align: center;
 }
