@@ -1,0 +1,48 @@
+# ATTETNION: Make sure the db is right or any subsequent requests will be
+#            blocked because of the db-filter setting!
+POST http://demo.local.com/web/session/authenticate
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{
+  "jsonrpc": "2.0",
+    "params": {
+      "db": "gl2k",
+      "login": "admin",
+      "password": "xxx"
+    }
+}
+
+> {% client.global.set("session_id", response.body["result"].session_id); %}
+###
+
+POST http://demo.local.com/gl2k/garden/data
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Cookie: session_id={{session_id}}
+
+{
+  "jsonrpc": "2.0",
+    "params": {
+    }
+}
+
+###
+
+POST http://demo.local.com/gl2k/garden/image
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+Cookie: session_id={{session_id}}
+
+{
+  "jsonrpc": "2.0",
+    "params": {
+      "thumbnail_record_ids": [9],
+      "image_record_id": 9
+    }
+}
+
+###

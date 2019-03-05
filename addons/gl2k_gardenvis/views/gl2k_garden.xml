@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data>
+    
+    <!--
+        gl2k.garden
+    -->
+    
+    <!-- FORM VIEW -->
+    <record model="ir.ui.view" id="gl2k_garden_form">
+        <field name="name">gl2k_garden_form</field>
+        <field name="model">gl2k.garden</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Global 2000 Gardens">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group string="Web Input" name="gl2k_garden_data">
+                        <group name="form_input">
+                            <field name="email"/>
+                            <field name="newsletter"/>
+                            <field name="title"/>
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="zip"/>
+                            <field name="street"/>
+                            <field name="city"/>
+                            <field name="country_id" options='{"no_open": True, "no_create": True}'/>
+                            <field name="garden_size"/>
+                            <field name="garden_image_name"/>
+                        </group>
+                        <group string="System Fields" name="computed_system_data">
+                            <field name="id"/>
+                            <field name="cmp_partner_id"/>
+                            <field name="cmp_better_zip_id"/>
+                            <field name="cmp_state_id"/>
+                            <field name="cmp_county_province"/>
+                            <field name="cmp_county_province_code"/>
+                            <field name="cmp_community"/>
+                            <field name="cmp_community_code"/>
+                            <field name="cmp_city"/>
+                            <field name="email_validated"/>
+                            <field name="email_validated_token"/>
+                            <field name="email_validated_time"/>
+                        </group>
+                    </group>
+                    <group name="garden_image">
+                        <field name="garden_image_file" widget="image" filename="garden_image_name" class="garden_image_backend"/>
+                        <field name="cmp_image_file" widget="image" class="garden_image_backend"/>
+                        <field name="cmp_thumbnail_file" widget="image" class="oe_avatar"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- TREE/LIST VIEW -->
+    <record model="ir.ui.view" id="gl2k_garden_tree">
+        <field name="name">gl2k_garden_tree</field>
+        <field name="model">gl2k.garden</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="Global 2000 Gardens">
+                <field name="email"/>
+                <field name="firstname"/>
+                <field name="lastname"/>
+                <field name="zip"/>
+                <field name="street"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="cmp_state_id"/>
+                <field name="cmp_community"/>
+                <field name="garden_size"/>
+                <field name="garden_image_file" widget="image" height="80" display="thumbnail"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    
+    <!-- SEARCH VIEW -->
+    <record model="ir.ui.view" id="gl2k_garden_search">
+        <field name="name">gl2k_garden_search</field>
+        <field name="model">gl2k.garden</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Global 2000 Gardens">
+                <field name="lastname"/>
+                <field name="firstname"/>
+                <field name="cmp_partner_id"/>
+                <field name="email"/>
+                <field name="zip"/>
+                <field name="garden_size"/>
+                
+                <field name="id"/>
+                <field name="state"/>
+
+                <field name="street"/>
+                <field name="city"/>
+                <field name="country_id"/>
+                <field name="cmp_state_id"/>
+                <field name="cmp_community"/>
+                
+                <field name="newsletter"/>
+                <field name="title"/>
+            </search>
+        </field>
+    </record>
+    
+    <!-- ACTIONS -->
+    <!-- Now we create actions for the new views -->
+    <!-- https://www.odoo.com/de_DE/forum/hilfe-1/question/how-do-you-define-specific-not-default-views-for-each-view-mode-type-form-tree-etc-in-act-window-xml-76275 -->
+    <!-- https://www.odoo.com/de_DE/forum/hilfe-1/question/multiple-create-form-views-same-model-107193 -->
+    <record id="gl2k_garden_action" model="ir.actions.act_window" >
+        <field name="name">Global 2000 Gardens</field>
+        <field name="res_model">gl2k.garden</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="gl2k_garden_search"/>
+    </record>
+    <record id="gl2k_garden_tree_viewaction" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="gl2k_garden_tree"/>
+        <field name="act_window_id" ref="gl2k_garden_action"/>
+    </record>
+    <record id="gl2k_garden_form_viewaction" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="gl2k_garden_form"/>
+        <field name="act_window_id" ref="gl2k_garden_action"/>
+    </record>
+    <!-- MENU -->
+    <!-- And we add the Action to a Menu with the shortcut menuitem -->
+    <menuitem id="gl2k_garden_menu" action="gl2k_garden_action" parent="base.menu_config" sequence="10301"/>
+        
+
+</data></openerp>
