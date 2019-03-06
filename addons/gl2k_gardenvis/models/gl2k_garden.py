@@ -17,7 +17,7 @@ class GL2KGarden(models.Model):
 
     # Fields to watch for geo localization
     _geo_location_fields = ('zip', 'country_id', 'city')
-    
+
     # Fileds to watch for refreshing the materialized views
     _refresh_matviews_fields = ('zip', 'garden_size')
 

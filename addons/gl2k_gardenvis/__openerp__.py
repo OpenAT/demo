@@ -24,7 +24,7 @@ FS-Online collect and visualize gardens in austria
 ==================================================
 
 - Form to collect garden and garedenowner data
-  - Possibillity to log in on the page to alter existing data
+  - Possibility to log in on the page to alter existing data
 - Thank you page
 - Map Visualization on both pages e.g.: with google maps
   - Controller to get json data vor visualization e.g.: with google maps
@@ -42,6 +42,8 @@ FS-Online collect and visualize gardens in austria
         'web_tree_image',
     ],
     'data': [
+        'security/gl2k_garden_usergroups.xml',
+        'security/ir.model.access.csv',
         'views/gl2k_garden.xml',
         'views/assets_backend.xml',
     ],

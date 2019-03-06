@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gl2k_garden,access_gl2k_garden,model_gl2k_garden,,1,0,0,0
+access_gl2k_garden_manager,access_gl2k_garden_manager,model_gl2k_garden,gl2k_gardenvis.group_gl2k_garden_manager,1,1,1,1
