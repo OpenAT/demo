@@ -1,6 +1,6 @@
 # ATTETNION: Make sure the db is right or any subsequent requests will be
 #            blocked because of the db-filter setting!
-POST http://demo.local.com/web/session/authenticate
+POST https://gl2k.datadialog.net/web/session/authenticate
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
@@ -9,7 +9,7 @@ Content-Type: application/json
   "jsonrpc": "2.0",
     "params": {
       "db": "gl2k",
-      "login": "admin",
+      "login": "xxx",
       "password": "xxx"
     }
 }
@@ -21,7 +21,7 @@ POST http://demo.local.com/gl2k/garden/data
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Cookie: session_id={{session_id}}
+#Cookie: session_id={{session_id}}
 
 {
   "jsonrpc": "2.0",
@@ -35,13 +35,13 @@ POST http://demo.local.com/gl2k/garden/image
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
-Cookie: session_id={{session_id}}
+#Cookie: session_id={{session_id}}
 
 {
   "jsonrpc": "2.0",
     "params": {
-      "thumbnail_record_ids": [9],
-      "image_record_id": 9
+      "thumbnail_record_ids": [3, 1],
+      "image_record_id": 3
     }
 }
 

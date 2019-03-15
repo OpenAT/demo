@@ -57,7 +57,9 @@ class GL2KGarden(models.Model):
                    "    sum(gl2k_garden.garden_size) as garden_size, "
                    "    json_agg(gl2k_garden.id) as record_ids, "
                    "    json_agg(gl2k_garden.id) as thumbnail_record_ids, "
-                   "    json_agg(DISTINCT gl2k_garden.zip) as zip_list "
+                   "    json_agg(DISTINCT gl2k_garden.zip) as zip_list, "
+                   "    json_agg(DISTINCT gl2k_garden.cmp_latitude) as latitude, "
+                   "    json_agg(DISTINCT gl2k_garden.cmp_longitude) as longitude "
                    "FROM "
                    "  gl2k_garden "
                    "WHERE "
@@ -118,6 +120,9 @@ class GL2KGarden(models.Model):
     cmp_community = fields.Char(string="Computed Community", readonly=True, index=True)
     cmp_community_code = fields.Char(string="Computed Community Code", readonly=True, index=True)
     cmp_city = fields.Char(string="Computed City", readonly=True)
+
+    cmp_latitude = fields.Char("Latitude", help="estimated latitude (wgs84)", readonly=True)
+    cmp_longitude = fields.Char("Longitude", help="estimated longitude (wgs84)", readonly=True)
 
     # Login (token/fstoken) information
     # ---------------------------------
@@ -189,6 +194,9 @@ class GL2KGarden(models.Model):
             'cmp_county_province_code': better_zip.county_province_code if better_zip else False,
             'cmp_community': better_zip.community if better_zip else False,
             'cmp_community_code': better_zip.community_code if better_zip else False,
+            #
+            'cmp_latitude': better_zip.latitude if better_zip else False,
+            'cmp_longitude': better_zip.longitude if better_zip else False,
         }
 
     @api.model

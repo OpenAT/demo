@@ -38,7 +38,7 @@ FS-Online collect and visualize gardens in austria
     'installable': True,
     'depends': [
         'auth_partner',
-        'base_location',
+        'base_location_extras',
         'web_tree_image',
     ],
     'data': [

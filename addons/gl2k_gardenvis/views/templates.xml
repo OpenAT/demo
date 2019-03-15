@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp><data noupdate="0">
+    
+        <!-- TEMPLATE meinedaten -->
+        <template id="mein_garten" name="gl2k_gardenvis Mein Garten" page="True">
+            <t t-call="website.layout">
+                <t t-set="title">Meine Garten</t>
+                <div id="wrap">
+                    
+                    <!-- Top snippet area -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div t-field="garden.apf_top_snippets" class="oe_structure apf_top_snippets"/>
+                        </div>
+                    </div>
+                    
+                </div>
+            </t>
+        </template>
+        
+    
+</data></openerp>

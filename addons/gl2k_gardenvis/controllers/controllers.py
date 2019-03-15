@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 
 class GL2KGardenVis(http.Controller):
 
-    @http.route('/gl2k/garden/data', type='json', auth="user")
+    @http.route('/gl2k/garden/data', type='json', auth="public")
     def gl2k_garden_data(self, **post):
         # https://stackoverflow.com/questions/24006291/postgresql-return-result-set-as-json-array
         # https://dba.stackexchange.com/questions/69655/select-columns-inside-json-agg
@@ -31,11 +31,11 @@ class GL2KGardenVis(http.Controller):
         return data
 
     # Return image urls
-    # TODO: use special placeholder image (check 'def placeholder()' in 'website/controllers/main.py')
-    # TODO: Allow public user group to access the image fields!
-    # HINT: Check website/controllers/main.py for route '/website/image'
-    @http.route('/gl2k/garden/image', type='json', auth="user")
+    @http.route('/gl2k/garden/image', type='json', auth="public")
     def gl2k_garden_image(self, thumbnail_record_ids=False, image_record_id=False,  **post):
+        # TODO: use special placeholder-image (check 'def placeholder()' in 'website/controllers/main.py')
+        # HINT: Check website/controllers/main.py for route '/website/image'
+
         garden_obj = http.request.env['gl2k.garden']
 
         thumbnail_data = {}

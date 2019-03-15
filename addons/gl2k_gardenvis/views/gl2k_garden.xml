@@ -40,6 +40,8 @@
                             <field name="cmp_community"/>
                             <field name="cmp_community_code"/>
                             <field name="cmp_city"/>
+                            <field name="cmp_latitude"/>
+                            <field name="cmp_longitude"/>
                             <field name="email_validated"/>
                             <field name="email_validated_token"/>
                             <field name="email_validated_time"/>
