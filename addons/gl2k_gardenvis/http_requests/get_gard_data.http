@@ -17,7 +17,7 @@ Content-Type: application/json
 > {% client.global.set("session_id", response.body["result"].session_id); %}
 ###
 
-POST http://demo.local.com/gl2k/garden/data
+POST https://demo.datadialog.net/gl2k/garden/data
 Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
@@ -41,7 +41,7 @@ Content-Type: application/json
   "jsonrpc": "2.0",
     "params": {
       "thumbnail_record_ids": [3, 1],
-      "image_record_id": 3
+      "image_record_id": 3,
     }
 }
 

@@ -18,53 +18,129 @@ class GL2KGarden(models.Model):
     # Fields to watch for geo localization
     _geo_location_fields = ('zip', 'country_id', 'city')
 
-    # Fileds to watch for refreshing the materialized views
-    _refresh_matviews_fields = ('zip', 'garden_size')
+    # Fields to watch for refreshing the materialized views
+    _refresh_matviews_fields = ('zip', 'garden_size', 'garden_image_file')
 
     # States to sum for the visualization (materialized views)
     _valid_states = ('new', 'approved')
 
     def init(self, cr):
-        # State materialized view (Bundesland)
+        # MATERIALIZED VIEW (BUNDESLAND)
         cr.execute("SELECT * FROM pg_class WHERE relkind = 'm' and relname = 'garden_rep_state';")
         if cr.fetchone():
             cr.execute("DROP MATERIALIZED VIEW garden_rep_state;")
-        cr.execute("CREATE materialized VIEW garden_rep_state "
-                   "AS "
-                   "  SELECT "
-                   "    gl2k_garden.cmp_state_id, "
-                   "    res_country_state.name as cmp_state, "
-                   "    sum(gl2k_garden.garden_size) as garden_size, "
-                   "    json_agg(gl2k_garden.id) as record_ids, "
-                   "    json_agg(gl2k_garden.id) as thumbnail_record_ids, "
-                   "    json_agg(DISTINCT gl2k_garden.zip) as zip_list "
-                   "FROM "
-                   "  gl2k_garden "
-                   "  LEFT JOIN res_country_state ON gl2k_garden.cmp_state_id = res_country_state.id "
-                   "WHERE "
-                   "  gl2k_garden.cmp_state_id IS NOT NULL AND gl2k_garden.state in "+str(self._valid_states)+" "
-                   "group by gl2k_garden.cmp_state_id, res_country_state.name; ")
+        state_view = """
+                    CREATE materialized VIEW garden_rep_state
+                    AS        
+                        SELECT 
+                             g2kg.cmp_state_id
+                            ,res_country_state.name AS cmp_state
+                            ,sum(g2kg.garden_size) AS garden_size
+                            ,sum(g2kg.garden_size)/
+                                (select sum(sq3.garden_size) 
+                                 from gl2k_garden sq3
+                                 where sq3.state in %s
+                                   and sq3.cmp_state_id IS NOT NULL) AS garden_size_peg
+                            ,json_agg(g2kg.id) AS record_ids
+                            ,json_agg(DISTINCT g2kg.zip) AS zip_list
+                            ,(
+                              select json_agg(sq2.id) 
+                              from (															   
+                                    select sq1.id,  sq1.cmp_state_id
+                                    from gl2k_garden sq1 
+                                    where sq1.garden_image_file IS NOT NULL 
+                                      and sq1.state in %s) sq2 
+                              where sq2.cmp_state_id = g2kg.cmp_state_id
+                             ) thumbnail_record_ids
+                        from gl2k_garden g2kg
+                        left join res_country_state 
+                            on g2kg.cmp_state_id = res_country_state.id
+                        where g2kg.cmp_state_id is not null 
+                          and g2kg.state in %s
+                        group by 
+                             g2kg.cmp_state_id
+                            ,res_country_state.name        
+        """ % (str(self._valid_states), str(self._valid_states), str(self._valid_states))
+        cr.execute(state_view)
 
-        # Community materialized view (Gemeinde)
+        # MATERIALIZED VIEW (GEMEINDE)
         cr.execute("SELECT * FROM pg_class WHERE relkind = 'm' and relname = 'garden_rep_community';")
         if cr.fetchone():
             cr.execute("DROP MATERIALIZED VIEW garden_rep_community;")
-        cr.execute("CREATE materialized VIEW garden_rep_community "
-                   "AS "
-                   "  SELECT "
-                   "    gl2k_garden.cmp_community_code, "
-                   "    gl2k_garden.cmp_community, "
-                   "    sum(gl2k_garden.garden_size) as garden_size, "
-                   "    json_agg(gl2k_garden.id) as record_ids, "
-                   "    json_agg(gl2k_garden.id) as thumbnail_record_ids, "
-                   "    json_agg(DISTINCT gl2k_garden.zip) as zip_list, "
-                   "    json_agg(DISTINCT gl2k_garden.cmp_latitude) as latitude, "
-                   "    json_agg(DISTINCT gl2k_garden.cmp_longitude) as longitude "
-                   "FROM "
-                   "  gl2k_garden "
-                   "WHERE "
-                   "  gl2k_garden.cmp_community IS NOT NULL AND gl2k_garden.state in "+str(self._valid_states)+" "                   
-                   "group by gl2k_garden.cmp_community_code, gl2k_garden.cmp_community; ")
+        community_view = """
+                        CREATE materialized VIEW garden_rep_community
+                        AS
+                            select
+                                 g2kg.cmp_community_code
+                                ,g2kg.cmp_community
+                                ,sum(g2kg.garden_size) AS garden_size
+                                ,sum(g2kg.garden_size)/
+                                 (
+                                     select
+                                         sum(sq3.garden_size)
+                                     from gl2k_garden sq3
+                                     where sq3.cmp_community is not null
+                                       and sq3.state in %s
+                                 ) AS garden_size_peg
+                                ,json_agg(g2kg.id) AS record_ids
+                                ,(
+                                  select
+                                    json_agg(sq2.id)
+                                  from
+                                    (
+                                    select
+                                         sq1.id
+                                        ,sq1.cmp_community_code
+                                    from gl2k_garden sq1
+                                    where sq1.cmp_community is not null
+                                      and sq1.state in %s
+                                      and sq1.garden_image_file is not null
+                                    ) sq2
+                                   where sq2.cmp_community_code = g2kg.cmp_community_code
+                                    
+                                 ) thumbnail_record_ids
+                                ,json_agg(DISTINCT g2kg.zip) AS zip_list
+                                ,(
+                                  select
+                                    json_agg(distinct sq2.cmp_latitude)
+                                  from
+                                    (
+                                    select
+                                         sq1.cmp_latitude
+                                        ,sq1.cmp_community_code
+                                    from gl2k_garden sq1
+                                    where sq1.cmp_community is not null
+                                      and sq1.state in %s
+                                      and sq1.cmp_latitude is not null
+                                    ) sq2
+                                   where sq2.cmp_community_code = g2kg.cmp_community_code
+                                    
+                                 ) latitude
+                                ,(
+                                  select
+                                    json_agg(distinct sq2.cmp_longitude)
+                                  from
+                                    (
+                                    select
+                                         sq1.cmp_longitude
+                                        ,sq1.cmp_community_code
+                                    from gl2k_garden sq1
+                                    where sq1.cmp_community is not null
+                                      and sq1.state in %s
+                                      and sq1.cmp_longitude is not null
+                                    ) sq2
+                                   where sq2.cmp_community_code = g2kg.cmp_community_code
+                                    
+                                 ) longitude
+                            from gl2k_garden g2kg
+                            where g2kg.cmp_community is not null
+                              and g2kg.state in %s
+                            group by 
+                                 g2kg.cmp_community_code
+                                ,g2kg.cmp_community        
+        """ % (str(self._valid_states), str(self._valid_states), str(self._valid_states), str(self._valid_states),
+               str(self._valid_states))
+        cr.execute(community_view)
 
     # ------
     # FIELDS
@@ -85,7 +161,7 @@ class GL2KGarden(models.Model):
     email = fields.Char(string="E-Mail", required=True)
     newsletter = fields.Boolean(string="Newsletter", help="Subscribe for the Newsletter")
 
-    title = fields.Char(string="Title")
+    salutation = fields.Char(string="Salutation")
     firstname = fields.Char(string="Firstname")
     lastname = fields.Char(string="Lastname", required=True)
 
@@ -97,7 +173,7 @@ class GL2KGarden(models.Model):
                                  default=_default_country, domain="[('code', '=', 'AT')]")
 
     # garden fields
-    garden_size = fields.Integer(string="Garden Size m2", required=True)
+    garden_size = fields.Float(string="Garden Size m2", required=True)
     garden_image_name = fields.Char(string="Garden Image Name")
     garden_image_file = fields.Binary(string="Garden Image File")
 
@@ -157,7 +233,7 @@ class GL2KGarden(models.Model):
     def compute_images(self):
         for r in self:
             if r.garden_image_file:
-                r.cmp_image_file = image_resize_image(r.garden_image_file, size=(1200, 1200), avoid_if_small=True)
+                r.cmp_image_file = image_resize_image(r.garden_image_file, size=(1200, None), avoid_if_small=True)
                 r.cmp_thumbnail_file = resize_to_thumbnail(img=r.garden_image_file, box=(300, 300))
             else:
                 r.cmp_image_file = False

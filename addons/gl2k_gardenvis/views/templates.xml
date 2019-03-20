@@ -17,6 +17,48 @@
                 </div>
             </t>
         </template>
+    
+        <!-- TEMPLATE meinedaten -->
+        <template id="testtemplate" name="Testtemplate" page="True">
+            <t t-call="website.layout">
+                <t t-set="title">GL2K Karte</t>
+                <div id="wrap">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            
+                            <div id="gl2k-garden-container">
+                                <div id="map-canvas"></div>
+                                <div id="total-garden-size"><h2></h2>
+                                  <p>
+                                    Nationalpark in<br/>Österreichs Gärten
+                                  </p>
+                                  <p id="total-garden-count"></p>
+                                </div>
+                                
+                                
+                                <div id="gallery-modal">
+                                  <div id="gallery-modal-close"></div>
+                                  <h2 class="gallery-headline"></h2>
+                                  <h3 class="gallery-subheadline"></h3>
+                                  <div class="gallery-image-container">
+                                    <ul></ul>
+                                  </div>
+                                  
+                                  <div class="gallery-desc">
+                                    <!--Ich bin die weitere Info-->
+                                  </div>
+                                
+                                </div>
+                             </div>
+                            
+                            
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </t>
+        </template>
         
     
 </data></openerp>

@@ -40,11 +40,15 @@ FS-Online collect and visualize gardens in austria
         'auth_partner',
         'base_location_extras',
         'web_tree_image',
+        'fso_base_website',
+        'fso_forms',
     ],
     'data': [
         'security/gl2k_garden_usergroups.xml',
         'security/ir.model.access.csv',
         'views/gl2k_garden.xml',
         'views/assets_backend.xml',
+        'views/assets_frontend.xml',
+        'views/templates.xml',
     ],
 }

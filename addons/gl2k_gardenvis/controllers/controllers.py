@@ -15,6 +15,10 @@ class GL2KGardenVis(http.Controller):
         # https://dba.stackexchange.com/questions/69655/select-columns-inside-json-agg
         cr = http.request.env.cr
 
+        # HACK TO BE ALWAYS ON LATEST DATA
+        _logger.info("Hack for latest data - remove after test or inital phase")
+        http.request.env['gl2k.garden'].refresh_materialized_views()
+
         # Get the state data (Bundeslaender)
         cr.execute("SELECT json_agg(garden_rep_state) FROM garden_rep_state;")
         garden_rep_state = cr.fetchone()
@@ -56,3 +60,7 @@ class GL2KGardenVis(http.Controller):
                           for r in image_record}
 
         return {'thumbnail_data': thumbnail_data, 'image_data': image_data}
+
+    @http.route('/gl2k/garden/test', website=True, auth='public')
+    def gl2k_garden_test(self):
+        return http.request.render('gl2k_gardenvis.testtemplate')
