@@ -6,13 +6,12 @@
         <!-- Load custom js and css -->
         <template id="assets_frontend" inherit_id="fso_base_website.assets_frontend" name="GL2K Gardenvis">
             <xpath expr="//script[last()]" position="after">
-                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu"/>
-                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/lightslider.css'/>
-                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/gl2k-garden-style.css'/>
+                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/lib/leaflet/leaflet.css'/>
+                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/website_map.css'/>
                 
-                <script>var gmapsApiKey = 'AIzaSyBYg7Mf1U_X-ekjMApwgrRSMSzMPSHEzII';</script>
-                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/lightslider.js"/>
-                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/gl2k-garden-js.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/lib/leaflet/leaflet-src.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/austria_data/bundeslaender_und_gemeinden2.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/website_map_v3.js"/>
             </xpath>
         </template>
 

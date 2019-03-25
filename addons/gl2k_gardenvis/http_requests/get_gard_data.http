@@ -1,20 +1,20 @@
 # ATTETNION: Make sure the db is right or any subsequent requests will be
 #            blocked because of the db-filter setting!
-POST https://gl2k.datadialog.net/web/session/authenticate
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{
-  "jsonrpc": "2.0",
-    "params": {
-      "db": "gl2k",
-      "login": "xxx",
-      "password": "xxx"
-    }
-}
-
-> {% client.global.set("session_id", response.body["result"].session_id); %}
+#POST https://gl2k.datadialog.net/web/session/authenticate
+#Accept: */*
+#Cache-Control: no-cache
+#Content-Type: application/json
+#
+#{
+#  "jsonrpc": "2.0",
+#    "params": {
+#      "db": "gl2k",
+#      "login": "xxx",
+#      "password": "xxx"
+#    }
+#}
+#
+#> {% client.global.set("session_id", response.body["result"].session_id); %}
 ###
 
 POST https://demo.datadialog.net/gl2k/garden/data
@@ -40,8 +40,7 @@ Content-Type: application/json
 {
   "jsonrpc": "2.0",
     "params": {
-      "thumbnail_record_ids": [3, 1],
-      "image_record_id": 3,
+      "thumbnail_record_ids": [4, 1, 3]
     }
 }
 

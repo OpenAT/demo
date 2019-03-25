@@ -1,0 +1,210 @@
+#gardenMap {
+     height: 600px;
+     position: relative;
+}
+
+.leaflet-map-pane svg {
+    width: unset;
+    height: unset;
+}
+
+/* /website/static/src/css/website.css defined in bundle 'website.assets_frontend' */
+/* TODO remove this media stuff !!! */
+/*@media screen and (max-width: 768px) {*/
+  /*body #gardenMap img {*/
+    /*-webkit-transform: inherit !important;*/
+    /*-moz-transform: inherit !important;*/
+    /*-ms-transform: inherit !important;*/
+    /*-o-transform: inherit !important;*/
+    /*transform: inherit !important;*/
+  /*}*/
+/*}*/
+
+
+.leaflet-div-icon {
+    border: none;
+    background-color: transparent;
+
+
+}
+
+/* hack for control container */
+.leaflet-left {
+    left: unset;
+    right: 10px;
+}
+
+
+.gardenMapIcon {
+    width: 40px;
+    height: 40px;
+}
+
+.gardenMapCommunityM2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+#gardenMapInfoBox {
+    background: white;
+    z-index: 500;
+    padding: 15px 30px;
+    border-bottom-right-radius: 45px;
+    border-top-left-radius: 45px;
+    border: 2px solid rgba(201,214,186, .25);
+    width: 175px;
+    top: 22px;
+    left: 22px;
+    position: absolute;
+}
+#gardenMapInfoBox p{
+    margin: 0 0 0.25em 0;
+}
+#gardenMapInfoBox .totalgardensize {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+@media only screen and (max-width: 768px) {
+	#gardenMapInfoBox {
+	    display: none;
+	}
+}
+
+/*@media only screen and (min-width: 768px) and (max-width: 1200px) {*/
+	/*#gardenMapInfoBox {*/
+        /*left: 20%;*/
+	/*}*/
+/*}*/
+
+/*@media only screen and (min-width: 1200px) {*/
+	/*#gardenMapInfoBox {*/
+        /*margin-left: 30%;*/
+	/*}*/
+/*}*/
+
+
+/* ---------------------------------------------------- */
+/* STUFF FOR MODAL BOX - NOT FULLY NAMESPACED RIGHT NOW */
+/* ---------------------------------------------------- */
+/* The Modal (background) */
+#gardenMapGallery {
+    display: none;
+
+    position: relative;
+    z-index: 3000;
+    height: 100%;
+    width: 90%;
+    margin: auto;
+    padding: 0;
+    overflow: hidden;
+    background-color: grey;
+}
+
+#gardenMapModal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+/* Modal Content */
+.gardenMapModalContent {
+    position: relative;
+    background-color: transparent;
+    margin: auto;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.gardenMapFrontImageContainer {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* The Close Button */
+.closeBtnGardenMap {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 60px;
+    padding: 10px;
+    z-index: 3900;
+    border-radius: 30px;
+    background-color: lightslategray;
+}
+
+.closeBtnGardenMap:hover,
+.closeBtnGardenMap:focus {
+    color: #999;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*FrontImage*/
+#gardenMapFrontImage {
+    height: 100%;
+    min-width: 100%;
+}
+
+/* Next & previous buttons */
+.moveBtnGardenMapPrev,
+.moveBtnGardenMapNext {
+    cursor: pointer;
+    position: absolute;
+    z-index: 3005;
+    top: 50%;
+    width: auto;
+    padding: 6px;
+    margin-top: -50px;
+    /*color: white;*/
+    color: lightslategray;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.6s ease;
+    /*border-radius: 0 3px 3px 0;*/
+    user-select: none;
+    -webkit-user-select: none;
+    /*height: 60px;*/
+    /*border-radius: 30px;*/
+    /*background-color: lightslategray;*/
+    /*height: 120px;*/
+}
+
+/* Position the "next button" to the right */
+.moveBtnGardenMapNext {
+    right: 0;
+    /*border-radius: 3px 0 0 3px;*/
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.moveBtnGardenMapPrev:hover,
+.moveBtnGardenMapNext:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.gardenMapColumn {
+    padding: 8px;
+    float: left;
+}
+
+img.gardenMapThumbnail {
+    opacity: 0.6;
+}
+
+.active,
+.gardenMapThumbnail:hover {
+    opacity: 1;
+}
+
+img.hover-shadow {
+    transition: 0.3s;
+}
+
+.hover-shadow:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

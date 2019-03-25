@@ -5,11 +5,10 @@ from openerp.addons.fso_base.tools.image import resize_to_thumbnail
 from openerp.tools.image import image_resize_image
 from openerp.tools.translate import _
 
+import uuid
+
 import logging
 logger = logging.getLogger(__name__)
-
-# TODO: Allow public user group to access the image fields or they could not be opened without login!
-#       BUT Keep record data safe!
 
 
 class GL2KGarden(models.Model):
@@ -19,7 +18,7 @@ class GL2KGarden(models.Model):
     _geo_location_fields = ('zip', 'country_id', 'city')
 
     # Fields to watch for refreshing the materialized views
-    _refresh_matviews_fields = ('zip', 'garden_size', 'garden_image_file')
+    _refresh_matviews_fields = ('zip', 'street', 'garden_size', 'garden_image_file', 'state')
 
     # States to sum for the visualization (materialized views)
     _valid_states = ('new', 'approved')
@@ -159,6 +158,7 @@ class GL2KGarden(models.Model):
     # Form input fields
     # -----------------
     email = fields.Char(string="E-Mail", required=True)
+    # ATTENTION: This is NOT! transfered to the res.partner > Done by FRST workflow in the future!
     newsletter = fields.Boolean(string="Newsletter", help="Subscribe for the Newsletter")
 
     salutation = fields.Char(string="Salutation")
@@ -185,8 +185,6 @@ class GL2KGarden(models.Model):
                                        compute="compute_images", store=True)
 
     # Will be computed based on zip field by the help of the addon base_location
-    cmp_partner_id = fields.Many2one(string="Computed Partner", comodel_name="res.partner", readonly=True, 
-                                     index=True, ondelete="set null")
     cmp_better_zip_id = fields.Many2one(string="Better Zip", comodel_name="res.better.zip", readonly=True, 
                                         index=True, ondelete="set null")
     cmp_state_id = fields.Many2one(string="Computed State", comodel_name="res.country.state", readonly=True,
@@ -207,12 +205,15 @@ class GL2KGarden(models.Model):
 
     # E-Mail validation / Double-Opt-In
     # ---------------------------------
-    # HINT: Will change on every email change!
-    email_validated = fields.Char(string="E-Mail Validated", readonly=True)
-    email_validated_token = fields.Char(string="E-Mail Validated Token", readonly=True,
-                                        help="For Double-Opt-In Link")
-    email_validated_time = fields.Datetime(string="E-Mail Validated At", readonly=True,
-                                           help="E-Mail-Validate-Link validated at datetime")
+    email_validate = fields.Char(string="E-Mail to validate", readonly=True)
+    email_validate_token = fields.Char(string="E-Mail validation token", readonly=True,
+                                       help="To be used in the Double-Opt-In link")
+    # If this is set the link was klicked
+    email_validated_at = fields.Datetime(string="E-Mail validated", readonly=True)
+
+    # Created / Linked res.partner
+    # ----------------------------
+    partner_id = fields.Many2one(string="Partner", comodel_name="res.partner", readonly=True)
 
     # ONCHANGE
     # --------
@@ -239,13 +240,11 @@ class GL2KGarden(models.Model):
                 r.cmp_image_file = False
                 r.cmp_thumbnail_file = False
 
-    # -------------
-    # MODEL METHODS
-    # -------------
+    # -------
+    # METHODS
+    # -------
     @api.model
     def get_cmp_fields_vals(self, zip='', country_id='', city=''):
-        # TODO: search for the partner id either by token or by data matching
-
         better_zip = False
         if zip and country_id and city:
             better_zip = self.env['res.better.zip'].search([('name', '=', zip),
@@ -281,6 +280,41 @@ class GL2KGarden(models.Model):
         cr = self.env.cr
         cr.execute("REFRESH MATERIALIZED VIEW garden_rep_state; REFRESH MATERIALIZED VIEW garden_rep_community;")
 
+    @api.multi
+    def create_update_partner(self):
+        for r in self:
+            # Partner values
+            # ATTENTION: newsletter will not be transfered!
+            partner_vals = {
+                # TODO: salutation
+                'email': r.email,
+                'firstname': r.firstname,
+                'lastname': r.lastname,
+                'zip': r.zip,
+                'street': r.street,
+                'city': r.city,
+                'country_id': r.country_id.id if r.country_id else False,
+            }
+            # Update partner
+            if r.partner_id:
+                r.partner_id.sudo().write(partner_vals)
+            # Create partner
+            else:
+                partner_obj_su = self.env['res.partner'].sudo()
+                partner = partner_obj_su.create(partner_vals)
+                r.write({'partner_id': partner.id})
+
+    @api.multi
+    def create_update_email_validation(self):
+        for r in self:
+            # HINT: No E-Mail should not happen since it is a mandatory field!
+            if r.email != r.email_validate:
+                r.write({
+                    'email_validate': r.email,
+                    'email_validate_token': str(uuid.uuid1()),
+                    'email_validated_at': False
+                })
+
     # ----
     # CRUD
     # ----
@@ -294,16 +328,26 @@ class GL2KGarden(models.Model):
             vals['state'] = 'invalid'
 
         # Append computed fields values
-        if vals.get('zip', False) and vals.get('country_id', False):
+        if vals.get('zip', False):
             vals.update(self.get_cmp_fields_vals(zip=vals.get('zip'),
-                                                 country_id=vals.get('country_id'),
+                                                 country_id=vals.get('country_id', self._default_country().id),
                                                  city=vals.get('city', '')))
 
-        # Update materialized views
-        res = super(GL2KGarden, self).create(vals)
-        res.refresh_materialized_views()
+        # Create the record
+        record = super(GL2KGarden, self).create(vals)
 
-        return res
+        # Create or update res.partner
+        if 'partner_id' not in vals:
+            record.create_update_partner()
+
+        # Create or update email_validate fields
+        if 'email' in vals:
+            record.create_update_email_validation()
+
+        # Update materialized views
+        record.refresh_materialized_views()
+
+        return record
 
     @api.multi
     def write(self, vals):
@@ -323,6 +367,14 @@ class GL2KGarden(models.Model):
                 cmp_vals.update(r.get_cmp_fields_vals(zip=r.zip, country_id=r.country_id.id, city=r.city))
                 # Update record
                 r.write(cmp_vals)
+
+        # Create or update res.partner
+        if 'partner_id' not in vals:
+            self.create_update_partner()
+
+        # Create or update email_validate fields
+        if 'email' in vals:
+            self.create_update_email_validation()
 
         # Update materialized views
         if any(f in vals for f in self._refresh_matviews_fields):

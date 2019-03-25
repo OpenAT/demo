@@ -28,11 +28,10 @@
                             <field name="city"/>
                             <field name="country_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="garden_size"/>
-                            <field name="garden_image_name"/>
                         </group>
                         <group string="System Fields" name="computed_system_data">
                             <field name="id"/>
-                            <field name="cmp_partner_id"/>
+                            <field name="partner_id"/>
                             <field name="cmp_better_zip_id"/>
                             <field name="cmp_state_id"/>
                             <field name="cmp_county_province"/>
@@ -42,9 +41,10 @@
                             <field name="cmp_city"/>
                             <field name="cmp_latitude"/>
                             <field name="cmp_longitude"/>
-                            <field name="email_validated"/>
-                            <field name="email_validated_token"/>
-                            <field name="email_validated_time"/>
+                            <field name="email_validate"/>
+                            <field name="email_validate_token"/>
+                            <field name="email_validated_at"/>
+                            <field name="garden_image_name"/>
                         </group>
                     </group>
                     <group name="garden_image">
@@ -89,7 +89,7 @@
             <search string="Global 2000 Gardens">
                 <field name="lastname"/>
                 <field name="firstname"/>
-                <field name="cmp_partner_id"/>
+                <field name="partner_id"/>
                 <field name="email"/>
                 <field name="zip"/>
                 <field name="garden_size"/>
