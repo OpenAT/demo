@@ -8,10 +8,24 @@
             <xpath expr="//script[last()]" position="after">
                 <link rel="stylesheet" href='/gl2k_gardenvis/static/src/lib/leaflet/leaflet.css'/>
                 <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/website_map.css'/>
+                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/website_map_image_gallery.css'/>
+                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/fotorama-4.6.4/fotorama.css'/>
+                
+                <!-- Google Web Font -->
+                <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700" rel="stylesheet"/>
+                <link href="https://fonts.googleapis.com/css?family=Rubik:400,900" rel="stylesheet"/>
+                
                 
                 <script type="text/javascript" src="/gl2k_gardenvis/static/src/lib/leaflet/leaflet-src.js"/>
                 <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/austria_data/bundeslaender_und_gemeinden2.js"/>
-                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/website_map_v3.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/website_map_v4.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/website_map_image_gallery.js"/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/fotorama-4.6.4/fotorama.js"/>
+
+                <!--  DYNAMIC WEB FORM (fso_form)  -->
+                <link rel="stylesheet" href='/gl2k_gardenvis/static/src/css/npg_fso_form_dynamic.css'/>
+                <script type="text/javascript" src="/gl2k_gardenvis/static/src/js/npg_fso_form_dynamic.js"/>
+
             </xpath>
         </template>
 

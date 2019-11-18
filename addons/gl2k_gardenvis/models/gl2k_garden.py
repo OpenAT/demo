@@ -5,6 +5,8 @@ from openerp.addons.fso_base.tools.image import resize_to_thumbnail
 from openerp.tools.image import image_resize_image
 from openerp.tools.translate import _
 
+from openerp.http import request
+
 import uuid
 
 import logging
@@ -157,8 +159,15 @@ class GL2KGarden(models.Model):
 
     # Form input fields
     # -----------------
+    # NEW: Requested by Gerald
+    type = fields.Selection(string="Typ", selection=[('privat', 'Privat'),
+                                                     ('gemeinde', 'Gemeinde'),
+                                                     ('schule', 'Schule'),
+                                                     ('verein', 'Verein')])
+    organisation_name = fields.Char(string="Organisationsname")
+    #
     email = fields.Char(string="E-Mail", required=True)
-    # ATTENTION: This is NOT! transfered to the res.partner > Done by FRST workflow in the future!
+    # ATTENTION: This is NOT! transfered to the res.partner in FS-Online but done by FRST workflow!
     newsletter = fields.Boolean(string="Newsletter", help="Subscribe for the Newsletter")
 
     salutation = fields.Char(string="Salutation")
@@ -168,6 +177,7 @@ class GL2KGarden(models.Model):
     # res.partner address
     zip = fields.Char(string="Zip", required=True, index=True)
     street = fields.Char(string="Street")
+    street_number_web = fields.Char(string="Street Number Web")
     city = fields.Char(string="City")
     country_id = fields.Many2one(string="Country", comodel_name="res.country", required=True,
                                  default=_default_country, domain="[('code', '=', 'AT')]")
@@ -246,20 +256,21 @@ class GL2KGarden(models.Model):
     @api.model
     def get_cmp_fields_vals(self, zip='', country_id='', city=''):
         better_zip = False
+        better_zip_obj = self.env['res.better.zip'].sudo()
         if zip and country_id and city:
-            better_zip = self.env['res.better.zip'].search([('name', '=', zip),
-                                                            ('country_id', '=', country_id),
-                                                            ('city', '=', city)
-                                                            ], limit=1)
+            better_zip = better_zip_obj.search([('name', '=', zip),
+                                                ('country_id', '=', country_id),
+                                                ('city', '=', city)
+                                                ], limit=1)
             if not better_zip:
-                better_zip = self.env['res.better.zip'].search([('name', '=', zip),
-                                                                ('country_id', '=', country_id),
-                                                                ('city', 'ilike', city)
-                                                                ], limit=1)
+                better_zip = better_zip_obj.search([('name', '=', zip),
+                                                    ('country_id', '=', country_id),
+                                                    ('city', 'ilike', city)
+                                                    ], limit=1)
         if not better_zip and zip and country_id:
-            better_zip = self.env['res.better.zip'].search([('name', '=', zip),
-                                                            ('country_id', '=', country_id),
-                                                            ], limit=1)
+            better_zip = better_zip_obj.search([('name', '=', zip),
+                                                ('country_id', '=', country_id),
+                                                ], limit=1)
 
         return {
             'cmp_better_zip_id': better_zip.id if better_zip else False,
@@ -283,6 +294,19 @@ class GL2KGarden(models.Model):
     @api.multi
     def create_update_partner(self):
         for r in self:
+
+            # Only update a partner if a user is logged in for the current web request!
+            # ATTENTION: This prevents partner data (especially after a partner merge from frst) to be changed by 
+            #            not logged in users (by the public website user)
+            # TODO: ATTENTION: I am not sure if the request we get here is always the current request of the
+            #                  web controller - I need to thest this especially for multi threaded operations!
+            logged_in = request and request.uid and request.website and request.uid != request.website.user_id.id
+            if r.partner_id and not logged_in:
+                logger.warning('Update of linked Partner is only allowed if the user is logged in! '
+                               'Partner with ID %s exists already and no user is logged in! Skipping Partner update!'
+                               '' % r.partner_id.id)
+                continue
+
             # Partner values
             # ATTENTION: newsletter will not be transfered!
             partner_vals = {
@@ -292,6 +316,7 @@ class GL2KGarden(models.Model):
                 'lastname': r.lastname,
                 'zip': r.zip,
                 'street': r.street,
+                'street_number_web': r.street_number_web,
                 'city': r.city,
                 'country_id': r.country_id.id if r.country_id else False,
             }
@@ -299,6 +324,9 @@ class GL2KGarden(models.Model):
             if r.partner_id:
                 r.partner_id.sudo().write(partner_vals)
             # Create partner
+            # ATTENTION: If we just created a garden record and a user is logged in we still create a new partner
+            #            This may be just what we want because the "Dublettenzusammenlegung" of FRST may link the new
+            #            partner with the existing one if the values match enough.
             else:
                 partner_obj_su = self.env['res.partner'].sudo()
                 partner = partner_obj_su.create(partner_vals)
@@ -321,6 +349,7 @@ class GL2KGarden(models.Model):
     @api.model
     def create(self, vals):
 
+        # Make sure the country is Austria or ignore the garden record by setting its state to 'invalid'
         country_id = vals.get('country_id', False)
         # Check for default country
         if country_id and self._default_country() and country_id != self._default_country().id:
@@ -333,16 +362,25 @@ class GL2KGarden(models.Model):
                                                  country_id=vals.get('country_id', self._default_country().id),
                                                  city=vals.get('city', '')))
 
+        # Check if this e-mail is not already used
+        # HINT: This will only be checked on record create and will ALSO be checked by the web controller method
+        #       FsoFormsGL2KGardenVis -> validate_fields()!
+        if vals.get('email', False):
+            if self.search([('email', '=', vals['email'])], limit=1):
+                logger.error('Record for email %s exists already!' % vals['email'])
+                return False
+
         # Create the record
         record = super(GL2KGarden, self).create(vals)
 
-        # Create or update res.partner
+        # Create a res.partner
         if 'partner_id' not in vals:
             record.create_update_partner()
 
         # Create or update email_validate fields
-        if 'email' in vals:
-            record.create_update_email_validation()
+        # ATTENTION: DISABLED BECAUSE WE DECIDED EMAILS ARE DONE BY FRST
+        # if 'email' in vals:
+        #     record.create_update_email_validation()
 
         # Update materialized views
         record.refresh_materialized_views()
@@ -368,13 +406,16 @@ class GL2KGarden(models.Model):
                 # Update record
                 r.write(cmp_vals)
 
-        # Create or update res.partner
+        # Update the res.partner if logged in
+        # ATTENTION: Only allow updates to the partner if a user is logged in! This prevents partner data (especially
+        #            after a partner merge in frst) to be changed by the public website user!
         if 'partner_id' not in vals:
             self.create_update_partner()
 
         # Create or update email_validate fields
-        if 'email' in vals:
-            self.create_update_email_validation()
+        # ATTENTION: DISABLED BECAUSE WE DECIDED EMAILS ARE DONE BY FRST
+        #if 'email' in vals:
+        #    self.create_update_email_validation()
 
         # Update materialized views
         if any(f in vals for f in self._refresh_matviews_fields):

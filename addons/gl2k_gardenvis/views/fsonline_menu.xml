@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- ============ -->
+        <!-- FSO CHANNELS -->
+        <!-- ============ -->
+            <!-- GLOBAL 2000 -->
+            <menuitem id="gl2k_garden_channel" name="Global 2000" groups="base.group_user" parent="fso_base.menu_channels" sequence="10300"/>
+                <menuitem id="gl2k_garden_menu" action="gl2k_garden_action" parent="gl2k_garden_channel" sequence="10310"/>
+  
+    </data>
+</openerp>

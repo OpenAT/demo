@@ -18,6 +18,8 @@
                 <sheet>
                     <group string="Web Input" name="gl2k_garden_data">
                         <group name="form_input">
+                            <field name="type"/>
+                            <field name="organisation_name"/>
                             <field name="email"/>
                             <field name="newsletter"/>
                             <field name="salutation"/>
@@ -25,6 +27,7 @@
                             <field name="lastname"/>
                             <field name="zip"/>
                             <field name="street"/>
+                            <field name="street_number_web"/>
                             <field name="city"/>
                             <field name="country_id" options='{"no_open": True, "no_create": True}'/>
                             <field name="garden_size"/>
@@ -64,11 +67,14 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string="Global 2000 Gardens">
+                <field name="type"/>
+                <field name="organisation_name"/>
                 <field name="email"/>
                 <field name="firstname"/>
                 <field name="lastname"/>
                 <field name="zip"/>
                 <field name="street"/>
+                <field name="street_number_web"/>
                 <field name="city"/>
                 <field name="country_id"/>
                 <field name="cmp_state_id"/>
@@ -76,6 +82,7 @@
                 <field name="garden_size"/>
                 <field name="garden_image_file" widget="image" height="80" display="thumbnail"/>
                 <field name="state"/>
+                <field name="create_date"/>
             </tree>
         </field>
     </record>
@@ -87,6 +94,8 @@
         <field name="type">search</field>
         <field name="arch" type="xml">
             <search string="Global 2000 Gardens">
+                <field name="type"/>
+                <field name="organisation_name"/>
                 <field name="lastname"/>
                 <field name="firstname"/>
                 <field name="partner_id"/>
@@ -98,6 +107,7 @@
                 <field name="state"/>
 
                 <field name="street"/>
+                <field name="street_number_web"/>
                 <field name="city"/>
                 <field name="country_id"/>
                 <field name="cmp_state_id"/>

@@ -1,3 +1,5 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_gl2k_garden,access_gl2k_garden,model_gl2k_garden,,1,0,0,0
-access_gl2k_garden_manager,access_gl2k_garden_manager,model_gl2k_garden,gl2k_gardenvis.group_gl2k_garden_manager,1,1,1,1
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_gl2k_garden","access_gl2k_garden","model_gl2k_garden","",1,0,0,0
+"access_gl2k_garden_manager","access_gl2k_garden_manager","model_gl2k_garden","gl2k_gardenvis.group_gl2k_garden_manager",1,1,1,1
+"access_gl2k_garden_website","access_gl2k_garden_manager","model_gl2k_garden","base.group_public",1,1,1,0
+"access_gl2k_betterzip_websitegroup","GL2K Public Better Zip Access for Nationalparkgarten Forms","base_location.model_res_better_zip","base.group_public",1,1,1,0

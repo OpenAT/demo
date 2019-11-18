@@ -1,0 +1,15 @@
+.fso_form_wrap_1 .eintragstyp > label {
+    font-size: 30px;
+    display: block;
+}
+.fso_form_wrap_1 .eintragstyp div.radio {
+    display: inline-block;
+    margin-right: 12px;
+    font-size: 24px;
+}
+.fso_form_wrap_1 .eintragstyp div.radio  {
+    font-size: 24px;
+}
+.fso_form_wrap_1 .eintragstyp div.radio input {
+    margin-top: 9px;
+}

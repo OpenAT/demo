@@ -1,31 +1,37 @@
+/* ---------- */
+/* GARDEN MAP */
+/* ---------- */
 #gardenMap {
-     height: 600px;
-     position: relative;
+    height: 600px;
+    background: white;
+    /*position: relative;*/
 }
 
+/* remove svg styles from web_graph addon for leaflet.js */
 .leaflet-map-pane svg {
+    -webkit-touch-callout: unset;
+    -webkit-user-select: unset;
+    -khtml-user-select: unset;
+    -moz-user-select: unset;
+    -ms-user-select: unset;
+    user-select: unset;
+    /* Trying to get SVG to act like a greedy block in all browsers */
+    display: unset;
     width: unset;
     height: unset;
 }
 
-/* /website/static/src/css/website.css defined in bundle 'website.assets_frontend' */
-/* TODO remove this media stuff !!! */
-/*@media screen and (max-width: 768px) {*/
-  /*body #gardenMap img {*/
-    /*-webkit-transform: inherit !important;*/
-    /*-moz-transform: inherit !important;*/
-    /*-ms-transform: inherit !important;*/
-    /*-o-transform: inherit !important;*/
-    /*transform: inherit !important;*/
-  /*}*/
-/*}*/
+.leaflet-map-pane svg text {
+    font: unset;
+}
 
+.leaflet-map-pane svg .title {
+    font: unset;
+}
 
 .leaflet-div-icon {
     border: none;
     background-color: transparent;
-
-
 }
 
 /* hack for control container */
@@ -35,176 +41,100 @@
 }
 
 
-.gardenMapIcon {
-    width: 40px;
-    height: 40px;
-}
-
-.gardenMapCommunityM2 {
-    font-size: 20px;
-    font-weight: bold;
-    text-align: center;
-
-}
-
-#gardenMapInfoBox {
-    background: white;
-    z-index: 500;
-    padding: 15px 30px;
-    border-bottom-right-radius: 45px;
-    border-top-left-radius: 45px;
-    border: 2px solid rgba(201,214,186, .25);
-    width: 175px;
-    top: 22px;
-    left: 22px;
-    position: absolute;
-}
-#gardenMapInfoBox p{
-    margin: 0 0 0.25em 0;
-}
-#gardenMapInfoBox .totalgardensize {
-    font-weight: bold;
-    font-size: 16px;
-}
-
-@media only screen and (max-width: 768px) {
-	#gardenMapInfoBox {
-	    display: none;
-	}
-}
-
-/*@media only screen and (min-width: 768px) and (max-width: 1200px) {*/
-	/*#gardenMapInfoBox {*/
-        /*left: 20%;*/
-	/*}*/
-/*}*/
-
-/*@media only screen and (min-width: 1200px) {*/
-	/*#gardenMapInfoBox {*/
-        /*margin-left: 30%;*/
-	/*}*/
-/*}*/
-
-
-/* ---------------------------------------------------- */
-/* STUFF FOR MODAL BOX - NOT FULLY NAMESPACED RIGHT NOW */
-/* ---------------------------------------------------- */
-/* The Modal (background) */
-#gardenMapGallery {
-    display: none;
-
-    position: relative;
-    z-index: 3000;
-    height: 100%;
-    width: 90%;
-    margin: auto;
-    padding: 0;
-    overflow: hidden;
-    background-color: grey;
-}
-
-#gardenMapModal {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-
-/* Modal Content */
-.gardenMapModalContent {
-    position: relative;
-    background-color: transparent;
-    margin: auto;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-}
-
-.gardenMapFrontImageContainer {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-
-
-/* The Close Button */
-.closeBtnGardenMap {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+/* -------- */
+/*  Marker  */
+/* -------- */
+.gardenMapMarkerIcon {
     width: 60px;
-    padding: 10px;
-    z-index: 3900;
-    border-radius: 30px;
-    background-color: lightslategray;
+    font-family: "Nunito Sans", "Open Sans", "Roboto", Helvetica, Arial, sans-serif;
 }
 
-.closeBtnGardenMap:hover,
-.closeBtnGardenMap:focus {
-    color: #999;
-    text-decoration: none;
-    cursor: pointer;
-}
 
-/*FrontImage*/
-#gardenMapFrontImage {
-    height: 100%;
-    min-width: 100%;
-}
-
-/* Next & previous buttons */
-.moveBtnGardenMapPrev,
-.moveBtnGardenMapNext {
-    cursor: pointer;
+.gardenMapCommunityMaker {
+    width: max-content;
+    text-align: center;
+    font-family: "Nunito Sans", "Open Sans", "Roboto", Helvetica, Arial, sans-serif;
     position: absolute;
-    z-index: 3005;
-    top: 50%;
-    width: auto;
-    padding: 6px;
-    margin-top: -50px;
-    /*color: white;*/
-    color: lightslategray;
-    font-weight: bold;
+    min-width: 130px;
+}
+
+.gardenMapCommunityMaker .gardenMapCommunityMakerOuter {
+    width: max-content;
+    margin: 0 auto;
+    position: absolute;
+    text-align: center;
+    left: -60px;
+}
+
+.gardenMapCommunityMakerImg {
+    width: 60px;
+}
+
+.gardenMapCommunityMakerText {
     font-size: 20px;
-    transition: 0.6s ease;
-    /*border-radius: 0 3px 3px 0;*/
-    user-select: none;
-    -webkit-user-select: none;
-    /*height: 60px;*/
-    /*border-radius: 30px;*/
-    /*background-color: lightslategray;*/
-    /*height: 120px;*/
+    font-weight: bold;
+    margin: 0 auto;
+    color: #3c3c3b;
+    width: max-content;
+    min-width: 130px;
 }
 
-/* Position the "next button" to the right */
-.moveBtnGardenMapNext {
-    right: 0;
-    /*border-radius: 3px 0 0 3px;*/
+
+/* -------- */
+/* INFO BOX */
+/* -------- */
+#gardenMapInfoBox {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+    z-index: 540;
+    background: transparent;
+    border: none;
+    width: 175px;
+    font-family: 'Rubik', "Nunito Sans", "Open Sans", "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: 900;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.moveBtnGardenMapPrev:hover,
-.moveBtnGardenMapNext:hover {
-    background-color: rgba(0, 0, 0, 0.8);
+#gardenMapInfoBox .totalgardensize {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
 }
 
-.gardenMapColumn {
-    padding: 8px;
-    float: left;
+#gardenMapInfoBox .totalgardensize img.gardenMapInfoBoxBg {
+    width: 100%;
 }
 
-img.gardenMapThumbnail {
-    opacity: 0.6;
+#gardenMapInfoBox .totalgardensize .gardenMapInfoBoxText {
+    position: absolute;
+    top: 11px;
+    z-index: 545;
+    width: 100%;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    color: #76b837;
 }
 
-.active,
-.gardenMapThumbnail:hover {
-    opacity: 1;
+/* ------------- */
+/* MEDIA QUERIES */
+/* ------------- */
+@media (max-width: 768px) {
+    #gardenMap {
+        height: 400px;
+    }
+
+    #gardenMapInfoBox {
+        width: 145px;
+        top: 18px;
+        left: 18px;
+    }
+
+    #gardenMapInfoBox .totalgardensize .gardenMapInfoBoxText {
+        top: 10px;
+        width: 100%;
+        font-size: 18px;
+    }
+
 }
 
-img.hover-shadow {
-    transition: 0.3s;
-}
-
-.hover-shadow:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
