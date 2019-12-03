@@ -9,6 +9,8 @@ FS-Online Instance Configuration
 
 Customer configuration for the instance demo
 
+This line was just a test for the new fsonline.py update :)
+
 - Default settings
 - View modifications
 - CSS
