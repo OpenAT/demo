@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    
+    <!-- THEME 'gl2k' SNIPPETS -->
+    <!-- HINT: We simply use the default snippets from 'fso_website_email.theme_framework_snippets' -->
+    <!-- HINT: These snippets will be loaded in the template 'email_theme_gl2k_assets_editmode' by java script -->
+    <template id="email_theme_gl2k_snippets">
+        <!-- Simply Load theme_default_snippets :) -->
+        <t t-call="fso_website_email.theme_framework_snippets"/>
+    </template>
+    
+    
+    <!-- EXTEND fso_website_email.theme_framework_snippets for the 'gl2k' theme -->
+    <template id="email_theme_gl2k_snippets_overrides" inherit_id="fso_website_email.theme_framework_snippets" name="Email Theme gl2k Snippet overrides">
+        
+        <!-- ==================== -->
+        <!--  gl2k EXTRA SNIPPETS -->
+        <!-- ==================== -->
+        <xpath expr="//div[@id='snippet_email_special']" position="inside">
+            
+            <!-- .gl2k_bin Snippet -->
+            <!-- ================= -->
+            <div>
+                <!-- Icon and name -->
+                <div class="oe_snippet_thumbnail">
+                    <img class="oe_snippet_thumbnail_img"
+                         src="/fso_website_email_gl2k/static/src/icons/gl2k_bin.png"/>
+                    <span class="oe_snippet_thumbnail_title">Container</span>
+                </div>
+                <!-- SNIPPET BLOCK -->
+                <div class="oe_snippet_body ckediting_enabled gl2k_bin" contenteditable="true">
+                </div>
+            </div>
+            
+        </xpath>
+
+        <!-- =========================== -->
+        <!-- SNIPPET TARGETS AND OPTIONS -->
+        <!-- =========================== -->
+        
+        <!-- .gl2k_bin Targets -->
+        <xpath expr="//div[@id='snippet_options']" position="inside">
+            <div data-snippet-option-id='gl2k_bin_target'
+                 data-selector=".gl2k_bin"
+                 data-selector-siblings="[data-oe-field='body_html'] > div"
+                 data-selector-children="[data-oe-field='body_html']">
+            </div>
+            <div data-snippet-option-id='gl2k_bin_inside'
+                 data-selector=".snippet_block"
+                 data-selector-siblings=".gl2k_bin > div"
+                 data-selector-children=".gl2k_bin">
+            </div>
+        </xpath>
+        
+        <!-- gl2k Foreground Styles -->
+        <xpath expr="//div[@data-snippet-option-id='dadi_sb_fg_color']//ul" position="replace">
+            <ul class="dropdown-menu">
+                <li data-value=''><a>None</a></li>
+                <li data-value='gl2k_sb_fg_red'><a>Rot</a></li>
+                <li data-value='gl2k_sb_fg_grey'><a>Grau</a></li>
+                <li data-value='gl2k_sb_fg_green'><a>Grün</a></li>
+                <li data-value='gl2k_sb_fg_background'><a>Hintergrund</a></li>
+            </ul>
+        </xpath>
+        
+        <!-- gl2k Background styles -->
+        <xpath expr="//div[@data-snippet-option-id='dadi_sb_bg_color']//ul" position="replace">
+            <ul class="dropdown-menu">
+                <li data-value=''><a>None</a></li>
+                <li data-value='gl2k_sb_bg_red'><a>Rot</a></li>
+                <li data-value='gl2k_sb_bg_grey'><a>Grau</a></li>
+                <li data-value='gl2k_sb_bg_green'><a>Grün</a></li>
+                <li data-value='gl2k_sb_bg_background'><a>Hintergrund</a></li>
+            </ul>
+        </xpath>
+        
+        <!-- .drop_in_button Extra Styles -->
+        <xpath expr="//li[@data-value='dadi_di_button_default']" position="after">
+            <li data-value='gl2k_di_button_red'><a>Gl2K Style Rot</a></li>
+            <li data-value='gl2k_di_button_Graue'><a>Gl2L Style Grau</a></li>
+            <li data-value='gl2k_di_button_green'><a>Gl2K Style Grün</a></li>
+        </xpath>
+        
+        <xpath expr="//div[@data-snippet-option-id='drop_in_button_width']" position="after">
+            <div data-snippet-option-id='gl2k_snippet_block_padding'
+                 data-selector=".snippet_block">
+                <!-- Snippet options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Vertical Padding</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Normal</a></li>
+                        <li data-value='gl2k_snippet_block_padding_none'><a>Remove Padding</a></li>
+                        <li data-value='gl2k_snippet_block_padding_lower'><a>Lower</a></li>
+                        <li data-value='gl2k_snippet_block_padding_smallbox'><a>Small Box</a></li>
+                        <li data-value='gl2k_snippet_block_padding_largebox'><a>Large Box</a></li>
+                    </ul>
+                </li>
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@data-snippet-option-id='drop_in_button_width']" position="after">
+            <div data-snippet-option-id='gl2k_snippet_block_img_padding_top'
+                 data-selector=".flexibleContainer33left img.flexibleImage,
+                                .flexibleContainer33middle img.flexibleImage,
+                                .flexibleContainer33right img.flexibleImage">
+                <!-- Snippet options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Vertical img Padding</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Normal</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_none'><a>Remove Padding</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_10'><a>10px</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_20'><a>20px</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_30'><a>30px</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_40'><a>40px</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_50'><a>50px</a></li>
+                        <li data-value='gl2k_snippet_block_img_padding_top_60'><a>60px</a></li>
+                    </ul>
+                </li>
+            </div>
+        </xpath>
+
+        <!-- .drop_in_button Extra Options -->
+        <xpath expr="//div[@data-snippet-option-id='drop_in_button_width']" position="after">
+            <!-- OPTION_GROUP: drop_in_button_gl2k_width -->
+            <div data-snippet-option-id='drop_in_button_gl2k_width'
+                 data-selector=".drop_in_button">
+                <!-- drop_in options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Width</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Normal</a></li>
+                        <li data-value='gl2k_di_button_width_full'><a>Full</a></li>
+                    </ul>
+                </li>
+            </div>
+        </xpath>
+
+        <!-- NEW: .snippet_block_bpbutton Extra Styles -->
+        <xpath expr="//div[@data-snippet-option-id='snippet_block_bpbutton_style']//ul" position="inside">
+            <li data-value='bpbutton_style_green'><a>Gl2K Style Gruen</a></li>
+            <li data-value='bpbutton_style_grey'><a>Gl2K Style Graue</a></li>
+            <li data-value='bpbutton_style_red'><a>Gl2K Style Rot</a></li>
+
+        </xpath>
+        
+        <!-- .snippet_block_banner Options -->
+        <xpath expr="//div[@data-snippet-option-id='dadi_sb_bg_width']" position="after">
+            <div data-snippet-option-id='gl2k_sb_banner_width'
+                 data-selector=".snippet_block_banner">
+                <!-- Snippet options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Banner Image Width</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Full Width</a></li>
+                        <li data-value='gl2k_sb_banner_width_normal'><a>Normal</a></li>
+                    </ul>
+                </li>
+            </div>
+        </xpath>
+        
+        <!-- .snippet_block_text_image_left, .snippet_block_text_image_right Options -->
+        <xpath expr="//div[@data-snippet-option-id='drop_in_button_width']" position="after">
+            <div data-snippet-option-id='gl2k_image_size'
+                 data-selector=".snippet_block_text_image_left,
+                                .snippet_block_text_image_right">
+                <!-- drop_in options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Bildgröße</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Default</a></li>
+                        <li data-value='gl2k_large_image'><a>Large</a></li>
+                        <li data-value='gl2k_medium_image'><a>Medium</a></li>
+                        <li data-value='gl2k_small_image'><a>Small</a></li>
+                        <li data-value='gl2k_tiny_image'><a>Tiny</a></li>
+                    </ul>
+                </li>
+            </div>
+            
+            <div data-snippet-option-id='gl2k_image_styles'
+                 data-selector=".snippet_block_text_image_left">
+                <!-- drop_in options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">gl2k special Styles</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Default</a></li>
+                        <li data-value='gl2k_text_image_red_box'><a>Rote Box</a></li>
+                        <li data-value='gl2k_text_image_gl2kgrey_box'><a>Graue Box</a></li>
+                    </ul>
+                </li>
+            </div>
+            
+            <div data-snippet-option-id='gl2k_image_height'
+                 data-selector=".snippet_block_text_image_left">
+                <!-- drop_in options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Containerhöhe</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Default</a></li>
+                        <li data-value='gl2k_image_height_100'><a>100px</a></li>
+                        <li data-value='gl2k_image_height_150'><a>150px</a></li>
+                        <li data-value='gl2k_image_height_200'><a>200px</a></li>
+                        <li data-value='gl2k_image_height_250'><a>250px</a></li>
+                        <li data-value='gl2k_image_height_300'><a>300px</a></li>
+                        <li data-value='gl2k_image_height_400'><a>400px</a></li>
+                    </ul>
+                </li>
+            </div>
+            
+            <div data-snippet-option-id='gl2k_image_valign'
+                 data-selector=".snippet_block_text_image_left">
+                <!-- drop_in options menu -->
+                <li class="dropdown-submenu" data-required="true">
+                    <a tabindex="-1" href="#">Vertikale Bildposition</a>
+                    <ul class="dropdown-menu">
+                        <li data-value=''><a>Normal</a></li>
+                        <li data-value='gl2k_image_valign_middle'><a>Mittig</a></li>
+                        <li data-value='gl2k_image_valign_bottom'><a>Unten</a></li>
+                    </ul>
+                </li>
+            </div>
+            
+        </xpath>
+        
+        
+    </template>
+
+</data>
+</openerp>

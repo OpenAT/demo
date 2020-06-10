@@ -8,6 +8,7 @@ from openerp.tools.translate import _
 from openerp.http import request
 
 import uuid
+import datetime
 
 import logging
 logger = logging.getLogger(__name__)
@@ -15,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 class GL2KGarden(models.Model):
     _name = "gl2k.garden"
+    #_inherit = 'mail.thread'
 
     # Fields to watch for geo localization
     _geo_location_fields = ('zip', 'country_id', 'city')
@@ -155,7 +157,7 @@ class GL2KGarden(models.Model):
                                                         ('rejected', 'Rejected'),
                                                         ('invalid', 'Invalid'),
                                                         ('disabled', 'Disabled')],
-                             default="new", index=True)
+                             default="new", index=True, track_visibility='onchange')
 
     # Form input fields
     # -----------------
@@ -163,28 +165,31 @@ class GL2KGarden(models.Model):
     type = fields.Selection(string="Typ", selection=[('privat', 'Privat'),
                                                      ('gemeinde', 'Gemeinde'),
                                                      ('schule', 'Schule'),
-                                                     ('verein', 'Verein')])
+                                                     ('verein', 'Verein')],
+                            track_visibility='onchange')
     organisation_name = fields.Char(string="Organisationsname")
     #
-    email = fields.Char(string="E-Mail", required=True)
+    email = fields.Char(string="E-Mail", required=True, track_visibility='onchange')
     # ATTENTION: This is NOT! transfered to the res.partner in FS-Online but done by FRST workflow!
     newsletter = fields.Boolean(string="Newsletter", help="Subscribe for the Newsletter")
 
     salutation = fields.Char(string="Salutation")
-    firstname = fields.Char(string="Firstname")
-    lastname = fields.Char(string="Lastname", required=True)
+    firstname = fields.Char(string="Firstname", track_visibility='onchange')
+    lastname = fields.Char(string="Lastname", required=True, track_visibility='onchange')
 
     # res.partner address
-    zip = fields.Char(string="Zip", required=True, index=True)
-    street = fields.Char(string="Street")
-    street_number_web = fields.Char(string="Street Number Web")
-    city = fields.Char(string="City")
+    zip = fields.Char(string="Zip", required=True, index=True, track_visibility='onchange')
+    street = fields.Char(string="Street", track_visibility='onchange')
+    street_number_web = fields.Char(string="Street Number Web", track_visibility='onchange')
+    city = fields.Char(string="City", track_visibility='onchange')
     country_id = fields.Many2one(string="Country", comodel_name="res.country", required=True,
-                                 default=_default_country, domain="[('code', '=', 'AT')]")
+                                 default=_default_country, domain="[('code', '=', 'AT')]",
+                                 track_visibility='onchange')
 
     # garden fields
-    garden_size = fields.Float(string="Garden Size m2", required=True)
-    garden_image_name = fields.Char(string="Garden Image Name")
+    garden_size = fields.Float(string="Garden Size m2", required=True, track_visibility='onchange')
+    garden_image_name = fields.Char(string="Garden Image Name", track_visibility='onchange')
+    garden_image_write_date = fields.Datetime(string="Bild geandert am", readonly=True)
     garden_image_file = fields.Binary(string="Garden Image File")
 
     # Computed and system fields (non user land)
@@ -215,7 +220,7 @@ class GL2KGarden(models.Model):
 
     # E-Mail validation / Double-Opt-In
     # ---------------------------------
-    email_validate = fields.Char(string="E-Mail to validate", readonly=True)
+    email_validate = fields.Char(string="E-Mail to validate", readonly=True, track_visibility='onchange')
     email_validate_token = fields.Char(string="E-Mail validation token", readonly=True,
                                        help="To be used in the Double-Opt-In link")
     # If this is set the link was klicked
@@ -223,7 +228,8 @@ class GL2KGarden(models.Model):
 
     # Created / Linked res.partner
     # ----------------------------
-    partner_id = fields.Many2one(string="Partner", comodel_name="res.partner", readonly=True)
+    partner_id = fields.Many2one(string="Partner", comodel_name="res.partner", readonly=True,
+                                 track_visibility='onchange')
 
     # ONCHANGE
     # --------
@@ -348,6 +354,9 @@ class GL2KGarden(models.Model):
     # ----
     @api.model
     def create(self, vals):
+        # Add "image changed" date
+        if 'garden_image_file' in vals and 'garden_image_write_date' not in vals:
+            vals['garden_image_write_date'] = datetime.datetime.now()
 
         # Make sure the country is Austria or ignore the garden record by setting its state to 'invalid'
         country_id = vals.get('country_id', False)
@@ -389,6 +398,10 @@ class GL2KGarden(models.Model):
 
     @api.multi
     def write(self, vals):
+        # Add "image changed" date
+        if 'garden_image_file' in vals and 'garden_image_write_date' not in vals:
+            vals['garden_image_write_date'] = datetime.datetime.now()
+
         # Update self first
         # HINT: res is just a boolean
         res = super(GL2KGarden, self).write(vals)

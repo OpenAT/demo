@@ -1,0 +1,345 @@
+/* global 2000 product theme */
+
+// ATTENTION: Take great care to style only elements on pages you really want to change based on a product theme!!!
+//            These pages are normally 'product', 'cart', 'checkout', 'payment', 'payment_static'
+//            !!! You should NOT add styles that apply to all pages/elements here !!!
+// HINT: with :not([data-confirmation-controller-called=True]) we exclude this design on one page of the shop! Cool ;)
+body[data-on-shop-page=True][data-latest-product-theme=gl2k_inline_test]:not([data-confirmation-controller-called=True]) {
+
+  // --------------------
+  // COMMON STYLE CHANGES
+  // --------------------
+  #wrapwrap main #wrap {
+
+    // RESET STYLES
+    #wsd-checkout-box .panel {
+      border-color: transparent;
+    }
+    a.btn span.glyphicon {
+      top: 3px;
+    }
+
+    // BACKGROUND IMAGE AND FONTS
+    .container.oe_website_sale {
+      border: 0.11111111rem solid #b3b3b3;
+      background: url(https://www.global2000.at/profiles/global/themes/global_action_theme/css/images/Textures_beige.jpg) repeat #fafafa;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+      color: #3c3c3b;
+      font-family: sans-serif, Nunito Sans;
+      font-weight: bold;
+    }
+
+    // FORM GROUPS LABELS AND INPUTS
+    input,
+    .radio label,
+    #wsd_checkout_form label {
+      color: #3c3c3b;
+      font-family: sans-serif, Nunito Sans;
+    }
+    input {
+      font-weight: bold;
+    }
+  }
+
+  // BUTTONS
+  .btn {
+    border-radius: 5px;
+    font-size: 24px;
+    font-family: sans-serif, Rubik, Nunito Sans;
+    //font-weight: bold;
+  }
+  .btn-default {
+    background: none;
+    background-color: white;
+  }
+  .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, btn-primary>a:visited {
+    background: none;
+    background-color: #d9435d;
+    border-color: #ad2a2a;
+  }
+  .btn:focus,
+  .btn:active:focus,
+  .btn.active:focus,
+  .btn.focus,
+  .btn:active.focus,
+  .btn.active.focus {
+      outline: 0 auto transparent;
+      outline-color: transparent;
+      outline-style: auto;
+      outline-width: 0;
+      outline-offset: 0;
+  }
+
+  // -----------------------------
+  // CHECKOUT STEPS INDICATOR MENU
+  // -----------------------------
+  #wsd_checkout_steps_nav {
+    padding-left: 0;
+    padding-right: 0;
+
+    .checkout_steps_navigation {
+      background-color: transparent;
+      font-family: sans-serif, Nunito Sans;
+      font-weight: bold;
+      margin-top: 0;
+
+      ul.checkout_steps_indicator.nav-tabs {
+        //display: table;
+        // Regular Nav Tabs
+        li {
+          //display: contents;
+          a, a:hover, a:focus {
+            //display: table-cell;
+
+            padding: 0;
+            line-height: 49px;
+            border: none;
+
+            color: #3c3c3b;
+            text-align: center;
+            background-color: white;
+            font-family: Nunito Sans;
+            font-weight: bold;
+
+            // ARROWS
+            .csi_tab_after {
+              width: 25px;
+              height: 49px;
+              display: inline-block;
+              position: absolute;
+              right: -25px;
+              vertical-align: top;
+              overflow: hidden;
+              z-index: 3;
+              background-color: transparent;
+              span {
+                position: relative;
+                width: 49px;
+                height: 49px;
+                display: inline-block;
+                margin-left: -45px;
+                background-color: white;
+                border: 1px solid darkgray;
+                border-radius: 3px;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                transform: rotate(45deg);
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+              }
+            }
+
+          }
+        }
+        // Active Nav Tabs
+        li.active {
+          a, a:hover, a:focus {
+          background-color: #75b836;
+          color: white;
+
+            // ARROWS
+            .csi_tab_after {
+              span {
+                background-color: #75b836;
+              }
+            }
+
+          }
+        }
+
+        li:last-child {
+          a, a:hover, a:focus {
+            // ARROWS
+            .csi_tab_after {
+              display: none;
+            }
+          }
+        }
+
+      }
+    }
+  }
+
+  // ------------
+  // PRODUCT PAGE
+  // ------------
+  #product_detail {
+
+    .amount_title {
+      display: none;
+    }
+
+    // Product Price Buttons and Input
+    .product_price {
+
+      // Donation Buttons
+      .btn {
+        border-radius: 6px;
+        font-size: 24px;
+        font-family: sans-serif, Rubik, Nunito Sans;
+        font-weight: bold;
+      }
+      .btn-default {
+        background: none;
+        background-color: white;
+      }
+      .btn-primary, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, btn-primary>a:visited {
+        background: none;
+        background-color: #75b836;
+        border-color: #7da359;
+      }
+
+      // Arbitrary Price Input and Add-To-Cart Button
+      .arbitrary_price_form_group {
+        .form-control {
+          border-right: none;
+          border-radius: 5px 0 0 5px;
+          font-size: 24px;
+          font-family: sans-serif, Rubik, Nunito Sans;
+          font-weight: bold;
+          height: 50px;
+          text-align: center;
+          color: #75b836;
+        }
+        .input-group-addon {
+          background: none;
+          background-color: white;
+          border-radius: 0 5px 5px 0;
+        }
+      }
+    }
+
+    // Payment interval
+    .payment_interval_ids > hr {
+      margin: 0 6px;
+    }
+    .payment_interval_ids > small {
+      color: #3c3c3b;
+      font-family: sans-serif, Nunito Sans;
+      font-weight: bold;
+      margin: 1.5em 0 1em 0;
+      display: block;
+    }
+
+    //  Add to cart button
+    #add_to_cart.btn-xl {
+      padding: 10px 20px;
+    }
+    #add_to_cart {
+      float: right;
+      min-width: 44%;
+      margin-right: 16px;
+      text-align: left;
+      span:after {
+        font-family: "Glyphicons Halflings";
+        float: right;
+        content: "\e080";
+      }
+    }
+
+  }
+
+  // ----------------
+  // PRODUCT PAGE OPC
+  // ----------------
+  // BACKGROUND IMAGE AND FONTS
+  .ppt_opc #website_sale_donate > .container {
+    border: 0.11111111rem solid #b3b3b3;
+    background: url(https://www.global2000.at/profiles/global/themes/global_action_theme/css/images/Textures_beige.jpg) repeat #fafafa;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    color: #3c3c3b;
+    font-family: sans-serif, Nunito Sans;
+    font-weight: bold;
+
+    padding-top: 1em;
+    padding-bottom: 2em;
+  }
+
+  // -------------
+  // CHECKOUT PAGE
+  // -------------
+  .wsd_checkout_page_content {
+    padding-bottom: 1em;
+    .checkout_title {
+      display: none;
+    }
+    #wsd_checkout_page_left_column {
+      width: 100%;
+      padding: 12px 32px;
+      .billing-fields {
+        padding-bottom: 2em;
+      }
+    }
+    .form-control {
+      border-radius: 5px;
+    }
+  }
+
+  // ------------
+  // PAYMENT PAGE
+  // ------------
+  .wsd_payment_page_content {
+    padding-bottom: 1em;
+    #wsd_payment_page_left_col {
+      width: 100%;
+      .payment_opc_acquirer_form {
+        text-align: center;
+        div {
+          text-align: left;
+        }
+      }
+    }
+    #wsd_payment_page_right_col {
+      display: none;
+    }
+  }
+
+  // PAYMENT MENU FOR REGULAR AND OPC PAGE
+  #payment_method {
+    .payment_title {
+      text-align: center;
+      margin-bottom: 1em;
+      //font-weight: bold;
+    }
+    ul.nav.nav-tabs {
+      li {
+          background-color: rgba(196, 195, 195, 0.39);
+        a {
+          margin: 0;
+          border-left: 1px solid rgba(196, 195, 195, 0.39);
+          border-right: 1px solid rgba(196, 195, 195, 0.39);
+          border-top: 1px solid rgba(196, 195, 195, 0.39);
+          text-align: center;
+          padding: 14px 26px;
+        }
+        .tab-acquirer-image {
+          img {
+            height: 33px;
+            margin: auto;
+          }
+
+        }
+      }
+    }
+    .tab-content {
+      background-color: white;
+      border-left: 1px solid #dddddd;
+        border-right: 1px solid #dddddd;
+        border-bottom: 1px solid #dddddd;
+      .tab-pane {
+
+      }
+    }
+    .tab-content>.tab-pane>div {
+      padding: 1em;
+    }
+  }
+
+
+
+// END
+}

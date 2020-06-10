@@ -48,6 +48,7 @@
                             <field name="email_validate_token"/>
                             <field name="email_validated_at"/>
                             <field name="garden_image_name"/>
+                            <field name="garden_image_write_date"/>
                         </group>
                     </group>
                     <group name="garden_image">
@@ -56,6 +57,10 @@
                         <field name="cmp_thumbnail_file" widget="image" class="oe_avatar"/>
                     </group>
                 </sheet>
+                <!--<div class="oe_chatter">-->
+                <!--    <field name="message_follower_ids" widget="mail_followers"/>-->
+                <!--    <field name="message_ids" widget="mail_thread"/>-->
+                <!--</div>-->
             </form>
         </field>
     </record>
@@ -73,16 +78,18 @@
                 <field name="firstname"/>
                 <field name="lastname"/>
                 <field name="zip"/>
-                <field name="street"/>
-                <field name="street_number_web"/>
+                <field name="street" invisible="1"/>
+                <field name="street_number_web" invisible="1"/>
                 <field name="city"/>
-                <field name="country_id"/>
+                <field name="country_id" invisible="1"/>
                 <field name="cmp_state_id"/>
                 <field name="cmp_community"/>
                 <field name="garden_size"/>
                 <field name="garden_image_file" widget="image" height="80" display="thumbnail"/>
-                <field name="state"/>
+                <field name="garden_image_write_date"/>
                 <field name="create_date"/>
+                <field name="write_date"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -104,8 +111,8 @@
                 <field name="garden_size"/>
                 
                 <field name="id"/>
-                <field name="state"/>
 
+                <field name="state"/>
                 <field name="street"/>
                 <field name="street_number_web"/>
                 <field name="city"/>
@@ -115,7 +122,36 @@
                 
                 <field name="newsletter"/>
                 <field name="salutation"/>
+
+                <field name="create_date" invisible="1"/>
+                <field name="write_date" invisible="1"/>
+                <field name="garden_image_write_date"/>
+                <field name="state"/>
+                <group string="Group by">
+                    <filter string="Status" context="{'group_by':'state'}"/>
+                    <filter string="Type" context="{'group_by':'type'}"/>
+                    <filter string="Stadt" context="{'group_by':'city'}"/>
+                    <filter string="Land" context="{'group_by':'country_id'}"/>
+                    <filter string="Berechnetes-Bundesl." context="{'group_by':'cmp_state_id'}"/>
+                    <filter string="Berechnete-Gem." context="{'group_by':'cmp_community'}"/>
+                    <filter string="Anlagedatum" context="{'group_by':'create_date'}"/>
+                    <filter string="Aenderungsdatum" context="{'group_by':'write_date'}"/>
+                    <filter string="Bild-geandert-am" context="{'group_by':'garden_image_write_date'}"/>
+                </group>
             </search>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="gl2k_garden_graph" model="ir.ui.view">
+        <field name="name">gl2k_garden_graph</field>
+        <field name="model">gl2k.garden</field>
+        <field name="arch" type="xml">
+            <graph string="Garden Analysis" type="pivot" stacked="True">
+                <field name="cmp_state_id" type="row"/>
+                <field name="create_date" interval="month" type="col"/>
+                <field name="garden_size" type="measure"/>
+            </graph>
         </field>
     </record>
     
@@ -141,6 +177,12 @@
         <field name="sequence" eval="20"/>
         <field name="view_mode">form</field>
         <field name="view_id" ref="gl2k_garden_form"/>
+        <field name="act_window_id" ref="gl2k_garden_action"/>
+    </record>
+    <record id="gl2k_garden_graph_viewaction" model="ir.actions.act_window.view">
+        <field name="sequence" eval="30"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="gl2k_garden_graph"/>
         <field name="act_window_id" ref="gl2k_garden_action"/>
     </record>
     <!-- MENU -->

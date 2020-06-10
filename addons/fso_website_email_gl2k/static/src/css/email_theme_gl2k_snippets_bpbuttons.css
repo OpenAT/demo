@@ -1,0 +1,139 @@
+/*
+    ======================
+    snippet_block_bpbutton
+    ======================
+*/
+
+/* BUGFIX for o8r298 ALREADY INCLUDED IN o8r299 and higher: remove after core update */
+/* Inner anchor */
+.snippet_block_bpbutton .bpbutton_table p {
+    line-height: initial;
+    line-height: normal;
+    /* reset padding */
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    /* reset margin */
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+
+}
+
+
+
+/* Base Style */
+.snippet_block_bpbutton .bpbutton_table,
+.snippet_block_bpbutton .bpbutton_table a,
+.snippet_block_bpbutton .bpbutton_table a:visited {
+    /* BUGFIX for o8r298 ALREADY INCLUDED IN o8r299 and higher */
+    line-height: initial;
+    line-height: normal;
+    /* END BUGFIX */
+    /* font */
+    font-weight: bold;
+    text-underline: none;
+    text-decoration: none;
+    /* for safety */
+    background-color: #3d3d3c;
+    border-color: #3d3d3c;
+    color: #ffffff;
+}
+
+/*
+    ---------------
+    SNIPPET OPTIONS
+    ---------------
+*/
+
+/* Additional button sizes */
+/* ----------------------- */
+/* medium*/
+.snippet_block_bpbutton.bpbutton_medium .bpbutton_table {
+    border-radius: 4px;
+}
+.snippet_block_bpbutton.bpbutton_medium .bpbutton_table a {
+    font-size: 18px;
+    border-width: 0.5em 1.25em;
+}
+/* large */
+.snippet_block_bpbutton.bpbutton_large .bpbutton_table {
+    border-radius: 5px;
+}
+.snippet_block_bpbutton.bpbutton_large .bpbutton_table a {
+    font-size: 20px;
+    border-width: 0.5em 1.56em;
+}
+/* huge */
+.snippet_block_bpbutton.bpbutton_huge .bpbutton_table {
+    border-radius: 6px;
+}
+.snippet_block_bpbutton.bpbutton_huge .bpbutton_table a {
+    font-size: 24px;
+    border-width: 0.4em 1.95em;
+}
+
+
+/* Additional button colors */
+/* ------------------------ */
+/* bpbutton_style_default */
+.snippet_block_bpbutton.bpbutton_style_default .bpbutton_table,
+.snippet_block_bpbutton.bpbutton_style_default .bpbutton_table a {
+    background-color: #3d3d3c ;
+    border-color: #3d3d3c ;
+    color: #ffffff;
+    font-weight: bold;
+}
+.snippet_block_bpbutton.bpbutton_style_red .bpbutton_table,
+.snippet_block_bpbutton.bpbutton_style_red .bpbutton_table a,
+.snippet_block_bpbutton.bpbutton_style_red .bpbutton_table a:visited,
+.snippet_block_bpbutton.bpbutton_style_red .bpbutton_table a:hover {
+    background-color: #d9435d;
+    border-color: #d9435d;
+    /*
+    color: #ffffff;
+    border: 1px solid #ad2a2a; !*customers whish 0,06rem but no not use it for compatibility reasons*!
+    border-bottom-width: 2.5px; !*customers whish 0,18rem but no not use it for compatibility reasons*!*/
+    border-radius: 5px;
+    color: white;
+    font-family: 'Rubik',Helvetica,Arial,'Open Sans',sans-serif;
+}
+
+/* green */
+.snippet_block_bpbutton.bpbutton_style_green .bpbutton_table,
+.snippet_block_bpbutton.bpbutton_style_green .bpbutton_table a,
+.snippet_block_bpbutton.bpbutton_style_green .bpbutton_table a:visited,
+.snippet_block_bpbutton.bpbutton_style_green .bpbutton_table a:hover {
+    background-color: #75b836;
+    border-color: #75b836;
+    /*
+    border: 1px solid #539132; !*customers whish 0,06rem but no not use it for compatibility reasons*!
+    border-bottom-width: 2.5px; !*customers whish 0,18rem but no not use it for compatibility reasons*!*/
+    border-radius: 5px;
+    color: white;
+    font-family: 'Rubik',Helvetica,Arial,'Open Sans',sans-serif;
+}
+/* blue */
+.snippet_block_bpbutton.bpbutton_style_grey .bpbutton_table,
+.snippet_block_bpbutton.bpbutton_style_grey .bpbutton_table a
+.snippet_block_bpbutton.bpbutton_style_grey .bpbutton_table a:visited,
+.snippet_block_bpbutton.bpbutton_style_grey .bpbutton_table a:hover {
+    background-color: #3d3d3c;
+    border-color: #3d3d3c;
+    /*
+    border: 1px solid #292928; !*customers whish 0,06rem but no not use it for compatibility reasons*!
+    border-bottom-width: 2.5px; !*customers whish 0,18rem but no not use it for compatibility reasons*!*/
+    border-radius: 5px;
+    color: white;
+    font-family: 'Rubik',Helvetica,Arial,'Open Sans',sans-serif;
+}
+/* yellow */
+.snippet_block_bpbutton.bpbutton_style_yellow .bpbutton_table,
+.snippet_block_bpbutton.bpbutton_style_yellow .bpbutton_table a {
+    background-color: #F19130;
+    border-color: #F19130;
+    color: #5a5a5a;
+    font-family: 'Rubik',Helvetica,Arial,'Open Sans',sans-serif;
+}

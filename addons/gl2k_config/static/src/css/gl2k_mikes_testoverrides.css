@@ -1,0 +1,5 @@
+
+.form-group[for=frst_bic],
+input#frst_bic {
+    display: None;
+}

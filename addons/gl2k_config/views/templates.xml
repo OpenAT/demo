@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!-- CUSTOM BOOTSTRAP THEME FOR Global2000 -->
+    <!-- HINT: http://getbootstrap.com/customize -->
+    <template id="gl2k_theme_option" inherit_id="website.themes" name="Gl2k Theme Option">
+        <xpath expr='//div[@id="themes-list"]' position="inside">
+            <div class="col-md-4">
+                <div class="well text-center">
+                    <div class="image">
+                        <img class="img-responsive" src="/gl2k_config/static/src/img/gl2k_theme_thumbnail.jpg"
+                             alt="GL2K"/>
+                    </div>
+                    <div class="options">
+                        <h3>Gl2k</h3>
+                        <p>Global2000</p>
+                        <a class="btn btn-info" href="/website/theme_change?theme_id=website.theme_gl2k">Apply</a>
+                    </div>
+                </div>
+            </div>
+        </xpath>
+    </template>
+        
+    <!-- load gl2k theme css and js -->
+    <template id="website.theme_gl2k" name="GL2K" inherit_id="website.theme" active="False" customize_show="True">
+        <xpath expr="//link[@id='bootstrap_css']" position="replace">
+            <link rel='stylesheet' href='/gl2k_config/static/src/css/gl2k_custom_fonts.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/gl2k_config/static/src/css/bootstrap_gl2k/css/bootstrap.min.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/gl2k_config/static/src/css/bootstrap_gl2k/css/bootstrap-theme.min.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/gl2k_config/static/src/css/gl2k.css' t-ignore="true"/>
+            <link rel='stylesheet' href='/gl2k_config/static/src/css/gl2k_mikes_testoverrides.css' t-ignore="true"/>
+        </xpath>
+    </template>
+        
+    <template id="gl2k_product_grid_description" inherit_id="website_sale.products_description">
+        <xpath expr="//div[@class='text-info oe_subdescription']" position="replace">
+           <div class="text-info oe_subdescription" contenteditable="false">
+             <div itemprop="description" t-field="product.description">
+             </div>
+           </div>
+        </xpath>
+    </template>
+
+    <!-- GOOGLE WEBMASTER TOOLS -->
+    <!--
+    <template id="google_webmastertools_site_verification" inherit_id="website.layout" name="Google Webmastertools site verification">
+        <xpath expr="//head//title" position="after">
+            <meta name="google-site-verification" content="google1234567890.html"/>
+        </xpath>
+    </template>
+    -->
+
+    </data>
+</openerp>

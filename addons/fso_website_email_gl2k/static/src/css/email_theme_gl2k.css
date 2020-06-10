@@ -1,0 +1,193 @@
+/* ---- */
+/* MAIN */
+/* ---- */
+
+/* best practice, do not use self hosted because there are more exceptions on the market for google already */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+/* nunito-sans-regular - latin */
+/*@font-face {
+  font-family: 'Nunito Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.eot'); !* IE9 Compat Modes *!
+  src: local('Nunito Sans Regular'), local('NunitoSans-Regular'),
+       url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.eot?#iefix') format('embedded-opentype'), !* IE6-IE8 *!
+       url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.woff2') format('woff2'), !* Super Modern Browsers *!
+       url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.woff') format('woff'), !* Modern Browsers *!
+       url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.ttf') format('truetype'), !* Safari, Android, iOS *!
+       url('/fso_website_email_gl2k/static/src/fonts/nunito-sans-v5-latin-regular.svg#NunitoSans') format('svg'); !* Legacy iOS *!
+}*/
+
+/* rubik-regular - latin */
+/*@font-face {
+  font-family: 'Rubik';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.eot'); !* IE9 Compat Modes *!
+  src: local('Rubik'), local('Rubik-Regular'),
+       url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.eot?#iefix') format('embedded-opentype'), !* IE6-IE8 *!
+       url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.woff2') format('woff2'), !* Super Modern Browsers *!
+       url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.woff') format('woff'), !* Modern Browsers *!
+       url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.ttf') format('truetype'), !* Safari, Android, iOS *!
+       url('/fso_website_email_gl2k/static/src/fonts/rubik-v9-latin-regular.svg#Rubik') format('svg'); !* Legacy iOS *!
+}*/
+
+html, body, #bodyTable, #bodyCell {
+    background-color: #f6f6f5;
+}
+html body #wrapwrap {
+    margin-top: 0;
+}
+.headerCell {
+    font-size: 12px;
+}
+
+#open_in_browser {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+/*
+    ====
+    body
+    ====
+*/
+#bodyCell {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+
+
+/* ------------------------------- */
+/* gl2k SIZING FOR 650 PIXEL WIDTH */
+/* ------------------------------- */
+#emailBody {
+    width: 650px;
+}
+
+/* ---------- */
+/* Typography */
+/* ---------- */
+/* Workaround for Outlook  mso-special-format:bullet;  ul li, and ol and li*/
+body,
+p,
+a,
+#emailBody ul li,
+#emailBody ol li {
+    /*font-family: 'PT Sans', 'Trebuchet MS', sans-serif;*/
+    font-family: 'Nunito Sans' ,Helvetica,Arial,'Open Sans',sans-serif;
+    font-size: 16px; /*customers whish 1rem but no not use it for compatibility reasons*/
+    color: #3d3d3c;
+}
+
+
+/* ATTENTION: Do not add line-height to "td", "div" or "span" elements to support Outlook 2013 and alike */
+p {
+    line-height: 1.5em;
+}
+div, span, td {
+    font-size: inherit;
+}
+
+p {
+    /* Top */
+    margin-top: 0;
+    -webkit-margin-before: inherit;
+    /* Bottom */
+    margin-bottom: 0;
+    -webkit-margin-after: inherit;
+    padding-bottom: 0.25em;
+    /* Just reset */
+    -webkit-margin-start: inherit;
+    -webkit-margin-end: inherit;
+}
+/* Links */
+a {
+    color: #5c902a;
+}
+
+a:visited {
+    color: #004084;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #75b835;
+    text-decoration: underline;
+}
+
+/* Headlines */
+.h1, .h2, .h3,
+h1, h2, h3 {
+    margin-top: 0;
+}
+.h1, .h2, .h3, .h4, .h5, .h6,
+h1, h2, h3, h4, h5, h6 {
+    /*font-family: 'PT Sans', 'Trebuchet MS', sans-serif;*/
+    font-family: 'Nunito Sans' ,Helvetica,Arial,'Open Sans',sans-serif;
+    line-height: 140%;
+    color: #414141;
+
+    /* Top */
+    margin-top: 0;
+    -webkit-margin-before: inherit;
+
+    /* Bottom */
+    margin-bottom: 0;
+    -webkit-margin-after: inherit;
+    padding-bottom: 0.25em;
+
+    /* Just reset */
+    -webkit-margin-start: inherit;
+    -webkit-margin-end: inherit;
+}
+.h1, h1 {
+    font-size: 32px; /*customers whish 2rem but no not use it for compatibility reasons*/
+    font-weight: 700;
+    color: #75b836;
+}
+.h2, h2 {
+    font-size: 24px; /*customers whish 1.5rem but no not use it for compatibility reasons*/
+    font-weight: 700;
+    color: #003d84;
+}
+.h3, h3 {
+    font-size: 21px; /*customers whish 1.3rem but no not use it for compatibility reasons*/
+    font-weight: 700;
+    color: #75b836;
+}
+.h4, h4 {
+    font-size: 18px;
+    font-weight: 300;
+}
+.h5, h5 {
+    font-size: 16px;
+    font-weight: 300;
+}
+.h6, h6 {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+blockquote {
+    padding: 11px 22px;
+    margin: 0 0 22px;
+    font-size: 20px;
+    border-left: 5px solid #8c8c8c;
+}
+
+p.gl2k_small {
+    font-size: 13px;
+}
+
+p.gl2k_tiny {
+    font-size: 10px;
+}
+
+.gl2k_red {
+    color: #d9435d;
+}
+

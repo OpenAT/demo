@@ -1,0 +1,633 @@
+/* MENÜ BEGIN */
+/* NEU TEST */
+body {
+    color: #414141;
+    /*font-family: "Nunito Sans", Helvetica, Arial, "Open Sans", sans-serif;*/
+    line-height: 1.5;
+    font-size: 18px;
+}
+input {
+    font-size: 1.22222222rem;
+    line-height: 1.22727273em;
+    /*font-family: "Nunito Sans", Helvetica, Arial, "Open Sans", sans-serif;*/
+    font-weight: 300;
+    font-style: normal;
+    color: #232020;
+    background-color: #fff;
+    border: 0.11111111rem solid #b3b3b3;
+    padding: 1.01388889rem 1rem;
+}
+#wsd_checkout_form label {
+    /*font-family: "Nunito Sans",Helvetica,Arial,"Open Sans",sans-serif;*/
+    font-weight: 300;
+    font-style: normal;
+    display: inline;
+    color: #232020;
+}
+#wsd-checkout-box {
+    width: 100%;
+}
+@media (min-width: 600px) {
+    .col-lg-offset-1 {
+        margin-left: 0px;
+    }
+}
+/* NEU TEST ENDE */
+#top_menu li {}
+
+#top_menu li.divider {
+    display: none;
+}
+
+body #top_menu li a {
+    background: transparent;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+#top_menu li span:not(.caret) {
+    padding: 5px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: black;
+}
+
+#top_menu li.active span {
+    background: #f1f1f1;
+}
+
+#top_menu li a:hover span:not(.caret) {
+    background: #e4f5d0;
+    border: 1px solid #c0e891;
+}
+
+/* MENÜ END */
+
+/* DROPDOWN MENÜ BEGIN */
+
+.dropdown-menu {
+    /*background-color: rgba(131, 192, 59, 0.78);*/
+    background-color: #83c03b;
+}
+body header .dropdown-menu a {
+background-color: #dbdbdb;
+color: 000;
+text-transform: capitalize;
+}
+body header .dropdown-menu a:hover {
+background-color: #9c9c9c;
+color: white;
+}
+body header .dropdown-menu a:active {
+background-color: #83c03b;
+color: #ffffff;
+}
+
+/* DROPDOWN MENÜ END */
+
+/* SHOP GRID BEGIN */
+/* BUGFIX for Error Message in o8r271 */
+#website_sale_donate > div > div.row.ppt_opc-top > div > div:nth-child(2) > div {
+    display: none;
+}
+/* Hide category navigation menu and regain full width */
+/* ---------------Bio-Kalender-------------- */
+body[data-rootcatid="3"] #products_grid_before {
+    display: none
+}
+body[data-rootcatid="3"] #products_grid .oe_product {
+    width: 180px;
+    height: 180px;
+    margin-right: 4px;
+}
+body[data-rootcatid="3"] oe_product oe_grid oe-height-2 {
+    margin-right: 10px;
+}
+body[data-rootcatid="3"] .oe_website_sale .products_pager .input-group {
+    display: none;
+}
+
+/* Hide category navigation menu and regain full width */
+/* ---------------Bio-Kalender-------------- */
+body[data-rootcatid="8"] #products_grid_before {
+    display: none
+}
+body[data-rootcatid="8"] #products_grid .oe_product {
+    width: 180px;
+    height: 180px;
+    margin-right: 4px;
+}
+body[data-rootcatid="8"] oe_product oe_grid oe-height-2 {
+    margin-right: 10px;
+}
+body[data-rootcatid="8"] .oe_website_sale .products_pager .input-group {
+    display: none;
+}
+
+/* ---------------AKW-Mochovce-------------- */
+body[data-rootcatid="5"] #products_grid_before {
+    display: none
+}
+body[data-rootcatid="5"] #products_grid .oe_product {
+    width: 180px;
+    height: 180px;
+    margin-right: 4px;
+}
+body[data-rootcatid="5"] oe_product oe_grid oe-height-2 {
+    margin-right: 10px;
+}
+body[data-rootcatid="5"] .oe_website_sale .products_pager .input-group {
+    display: none;
+}
+/* Gratlbox */
+body[data-rootcatid="6"] #products_grid_before {
+    display: none
+}
+body[data-rootcatid="6"] #products_grid .oe_product {
+    width: 180px;
+    height: 180px;
+    margin-right: 4px;
+}
+body[data-rootcatid="6"] oe_product oe_grid oe-height-2 {
+    margin-right: 10px;
+}
+body[data-rootcatid="6"] .oe_website_sale .products_pager .input-group {
+    display: none;
+}
+/* SHOP GRID END */
+
+/* SHOP PRODUCT PAGES BEGIN */
+#website_sale_donate h3,
+#website_sale_donate h4.payment_interval_ids {
+  color: black;
+}
+
+/* SPECIAL for MORE ONION WEBSITE INTEGRATION */
+#website_sale_donate .container {
+
+    /* width: 950px;*/
+    padding: 0px 15px;
+    margin-top: 10px;
+    /*background-color: white;*/
+}
+
+label.control-label.mandatory.text-danger {
+    color: #000000;
+}
+
+/* OnePage Checkout end */
+/* Spendenformular Anpassung Pflichtfelder */
+label.control-label.mandatory.text-danger:after {
+    content: '*';
+    color: red;
+}
+
+#wsd_checkout_page_right_column {
+    display: none;
+}
+#wsd_checkout_steps_header {
+    display: none;
+}
+
+@media (min-width: 810px) {
+    #wsd_checkout_page_left_column {
+        right: auto;
+    }
+}
+@media (min-width: 810px) {
+.container {
+    width: 810px;
+}
+}
+/*
+@media (min-width: 824px) {
+    .col-md-8 {
+        width: auto;
+    }
+}
+*/
+#wsd-checkout-box .panel {
+    background-color: transparent;
+}
+#order_total h3 {
+    color: black !important;
+}
+#right_column h4 {
+    color: black !important;
+}
+/* StepbyStep */
+#wsd-checkout-box > div > div.panel-body.text-center > form > div > h4 {
+    text-align: center;
+}
+h3.amount_title {
+    text-align: center !important;
+}
+
+span.price_donate_suggested_outer {
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+/* Product Page */
+body #website_sale_donate {
+    background-color: white;
+}
+body .price_donate .form-control {
+    color: black;
+}
+
+.has-feedback .form-control {
+    padding-right: initial;
+}
+body #wsd_checkout_form .form-control-feedback {
+    top: 0;
+}
+body #wsd_checkout_form .billing-fields .form-control-feedback {
+    top: 25px;
+  }
+.has-error .control-label {
+    color: #e72e30;
+}
+.text-danger {
+    color: #e72e30;
+}
+.wsd_confirmation_page .row.wsd_confirmation_page_status {
+    text-align: center;
+}
+
+#payment_method .nav>li>a {
+  padding: 10px 10px;
+}
+
+/* ONE PAGE CHECKOUT BEGIN */
+.ppt_opc #wsd-checkout-box img.product-image {
+  display: none;
+}
+/* bitte um Überschrift der OnePage Spendenprodukte */
+.ppt_opc #wsd-checkout-box > div > div > h1 {
+    display: none;
+}
+
+/* ONE PAGE CHECKOUT END */
+
+@media (min-width: 600px) {
+    /*#wsd_checkout_form .col-xs-12 {
+        width: 50%
+    }*/
+    body [data-name='frst-submit-button'] {
+        max-width: 100%;
+    }
+}
+/* SHOP PRODUCT PAGES END */
+
+/* GENERAL BEGIN */
+
+html body {
+    background-color: white;
+}
+  /* LINKS */
+body footer a:hover, a:focus {
+    color: white;
+    text-decoration: underline;
+}
+body footer a:visited {
+    color: white;
+}
+
+a:visited {
+    color: #76ac35;
+}
+
+/* Buttons begin */
+.btn-primary,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-primary:visited {
+    background-image: none;
+    background-color: #75b835 ;
+    border: 1px solid #75b835;
+    color: white;
+}
+
+body .btn-success {
+    color: #ffffff;
+}
+
+.btn-link {
+    color: #75b835;
+}
+body .btn-danger {
+  color: #ffffff;
+
+}
+body .btn-danger:focus,
+body .btn-danger.focus {
+  color: #ffffff;
+}
+body .btn-danger:hover {
+  color: #ffffff;
+}
+body .btn-danger:active,
+body .btn-danger.active,
+body .open > .dropdown-toggle.btn-danger {
+  color: #ffffff;
+}
+body .btn-danger:active:hover,
+body .btn-danger.active:hover,
+.open > .dropdown-toggle.btn-danger:hover,
+.btn-danger:active:focus,
+.btn-danger.active:focus,
+.open > .dropdown-toggle.btn-danger:focus,
+.btn-danger:active.focus,
+.btn-danger.active.focus,
+.open > .dropdown-toggle.btn-danger.focus {
+  color: #ffffff;
+}
+.btn-danger.disabled:hover,
+.btn-danger[disabled]:hover,
+fieldset[disabled] .btn-danger:hover,
+.btn-danger.disabled:focus,
+.btn-danger[disabled]:focus,
+fieldset[disabled] .btn-danger:focus,
+.btn-danger.disabled.focus,
+.btn-danger[disabled].focus,
+fieldset[disabled] .btn-danger.focus {
+  color: #ffffff;
+}
+body .btn-danger .badge {
+  color: #ffffff;
+}
+
+
+.carousel > div.carousel-inner > div > div > div > div.carousel-content.col-md-6.col-sm-12 h1,h2,h3,h4 {
+    color: #76ac35;
+}
+.carousel > div.carousel-inner > div > div > div > div.carousel-content.col-md-6.col-sm-12 {
+    background: rgba(245, 250, 237, 0.69);
+    border-bottom-right-radius: 30px;
+    border-top-left-radius: 30px;
+}
+.carousel > div.carousel-inner > div > div > div > div.carousel-content.col-md-6.col-sm-12 .btn-success {
+    background: #83c03b;
+    padding: .73em 2em .72em 1.2em;
+    border: 1px solid #68992f;
+    border-width: 2px;
+    border-radius: 5px;
+    color: #E9FFCF;
+}
+/* Buttons end */
+
+/* COOKIE NOTICE BEGIN */
+#website_cookie_notice {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 80px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.55)!important;
+    overflow: hidden;
+    z-index: 9001;
+}
+#website_cookie_notice a {
+    color: #83c03b;
+}
+#website_cookie_notice a.btn.btn-primary {
+    color: white;
+}
+/* COOKIE NOTICE END */
+
+/* IFRAME MODAL BOX BEHAVIOR BEGIN */
+
+#wsd_checkout_form .form-group {
+        position: relative !important;
+}
+.modal-open .modal {
+        overflow: visible !important;
+}
+.modal {
+    position: absolute !important;
+}
+
+#oe_main_menu_navbar div.modal.in > div.modal-dialog > div.modal-content {
+    position: relative;
+}
+/* BODY SCROLL AFTER ADDING MODAL BEHAVIOR -- STILL NEED TESTS */
+#wsd_checkout_steps_nav > div > div > a[href*="login"].btn.btn-primary.navbar-btn {
+  display: none;
+}
+/* Login buttons end */
+/* Shopping Cart Mini Icon */
+.fa-shopping-cart:before {
+    /*content: "\f16b";*/
+    content: "\f06c";
+}
+
+/* IFRAME MODAL BOX BEHAVIOR END */
+
+/* FOOTER */
+footer {
+    background: #92c853 !important;
+}
+footer h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: #76ac35 !important;
+}
+  footer a {
+    color: White;
+  }
+  footer a:hover {
+      text-decoration: none;
+  }
+#wrapwrap > footer > div.container.hidden-print {
+    color: white;
+}
+
+[data-name='frst-submit-button'] {
+    max-width: 100% !important;
+}
+[data-name='ogonedadi-submit-button'] {
+    max-width: 100% !important;
+}
+
+#wrap > section > div > div > div > img {
+    width: 100%;
+}
+
+/* GENERAL END */
+
+
+/* IFRAME TEST */
+
+@media (min-width: 900px) {
+    /*#product_detail.container {
+        width: 950px !important;
+    }*/
+    #wsd_checkout_form select[name="payment_interval_id"] {
+    width: auto;
+    margin: auto;
+    }
+}
+
+/* Kategorie */
+body[data-rootcatid="4"] #products_grid_before {
+  }
+/* Kategorie */
+
+/* CUSTOM HEADER BEGIN */
+
+body[data-rootcatid="4"] .domain_template_after_header .navbar-brand>img {
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    max-height: 100%;
+   height: 100%;
+   width: auto;
+   margin: 0 auto;
+
+
+   /* probably not needed anymore, but doesn't hurt */
+   -o-object-fit: contain;
+   object-fit: contain;
+}
+/*body[data-rootcatid="4"] .domain_template_after_header {
+    background-image: url(/website/image/product.template/27_f80f26d/parallax_image);
+    background-position: 0px 0px;
+    background-attachment: scroll;
+    overflow: hidden;
+}*/
+body[data-rootcatid="4"] .domain_template_after_header .navbar-default {
+    background-image: linear-gradient(to bottom, #fff 0, #fbfbfb 100%);
+    background-color: transparent !important;
+    border-color: transparent !important;
+}
+
+body[data-rootcatid="4"]  .parallax > div {
+    width: inherit;
+}
+
+body[data-rootcatid="4"] {
+    /*color: white;
+    mix-blend-mode: difference;*/
+}
+body[data-rootcatid="4"] .ppt_opc-checkout {
+    background-color: #fcfcfca1;
+}
+/* CUSTOM HEADER END */
+
+
+/* OTHER TESTS */
+/* joe begin tests
+.oe_website_sale.container {
+        padding-right: 30px !important;
+}
+
+#website_sale_donate > div > div.row.one-page-checkout.ppt_opc-checkout {
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.75);
+    padding-bottom: 10px;
+}
+#product_detail {
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+#wrap .container.oe_website_sale {
+    box-shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.75);
+    border-radius: 5px;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+#wsd_checkout_form .text-left .row {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+joe end tests
+*/
+
+/* joe begin
+#website_sale_donate > div > div.row.ppt_opc-top {
+    background-color: #f5faed !important;
+}
+joe end */
+
+/* joe begin
+.ppt_opc .price_donate {
+    padding: 10px !important;
+    width: 70%;
+    margin: auto;
+}
+joe end */
+
+/* cccc
+#wsd_checkout_form select[name="payment_interval_id"] {
+    width: 60%;
+    margin: auto;
+}
+cccc */
+
+/*
+#wsd_checkout_page_right_column {
+    display: none;
+}
+#wsd_checkout_page_left_column {
+    padding-left:auto;
+    width: 100%;
+}
+*/
+
+/* Checkout Page neu ENDE */
+
+/*
+.modal-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+*/
+/*
+#wsd_checkout_form .form-group {
+        position: relative !important;
+}
+.modal-open .modal {
+        overflow: visible !important;
+}
+.modal {
+    position: absolute !important;
+}
+*/
+/* Domain Template Header TEST */
+/*domain_template_header {
+    background: green;
+    default fallback
+}
+'/
+/*
+div.domain_template_after_header{
+   background-image:url(/website/image/ir.attachment/2245_0fcd380/datas);
+}​
+*/
+
+
+/* WEBSHOP GRIP CATEGORY BIO KALENDER */
+/*
+body[data-rootcatid="2"] .oe_product.oe_grid.oe-height-2 {
+    height: 200px;
+}
+
+body[data-rootcatid="2"] #products_grid.col-md-9 {
+    width: 100%
+}
+body[data-rootcatid="2"] .oe_product .oe_product_image img {
+    height: auto !important;
+    width: 117px !important;
+    bottom: inherit;
+    max-height: none;
+    max-width: none;
+    margin: initial !important;
+    left: 10px !important;
+    top: 10px !important;
+}*/
+/* WEBSHOP GRIP CATEGORY BIO KALENDER */
+

@@ -9,6 +9,9 @@ import werkzeug.wrappers
 import zipfile
 import tempfile
 import requests
+import contextlib
+import StringIO
+import base64
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -126,10 +129,12 @@ class GL2KGardenVis(http.Controller):
         # https://docs.python.org/2/library/zipfile.html
         # https://www.codementor.io/aviaryan/downloading-files-from-urls-in-python-77q3bs0un
         # https://pymotw.com/2/zipfile/
+
         _logger.info('gl2k_garden_zipexport() START')
 
         # Prepare a temp file for the zip archive
         zip_temp_file = tempfile.NamedTemporaryFile(mode='w+b', suffix=".zip")
+        _logger.info('zip_temp_file name: %s' % zip_temp_file.name)
 
         # Create a zipfile object in append mode to add multiple files
         zip_archive = zipfile.ZipFile(zip_temp_file, mode='a', compression=zipfile.ZIP_DEFLATED)
@@ -146,12 +151,13 @@ class GL2KGardenVis(http.Controller):
         # Prepare the CSV File
         csv_temp_file = tempfile.NamedTemporaryFile(mode='w+b', suffix=".csv")
         fields_to_export = [('id', 'Garteneintrag ID'),
-                            ('partner_id.id', 'Partner ID'),
+                            ('partner_id.id', 'Person ID'),
                             ('zip', 'Postleitzahl'),
                             ('cmp_state_id.name', 'Bundesland'),
                             ('cmp_community', 'Gemeinde'),
                             ('state', 'Status'),
-                            ('image_name', 'Bildname')
+                            ('garden_image_write_date', 'Bild geandert am'),
+                            ('image_name', 'Bildname'),
                             ]
         header_row = [v[1] for v in fields_to_export]
         csv_obj = csv.writer(csv_temp_file)
@@ -162,7 +168,9 @@ class GL2KGardenVis(http.Controller):
 
             # Prepare the image name
             if r.garden_image_name:
-                image_name = u'BDL-%s__GEM-%s__PLZ-%s__ID-%s.%s' % (
+                image_name = u'BILD-GEAENDERT-AM-%s__STATUS-%s__BDL-%s__GEM-%s__PLZ-%s__ID-%s.%s' % (
+                    r.garden_image_write_date or 'unbekannt',
+                    r.state,
                     r.cmp_state_id.name,
                     r.cmp_community or u'',
                     r.zip,
@@ -190,47 +198,37 @@ class GL2KGardenVis(http.Controller):
                 garden_row.append(val)
             csv_obj.writerow(garden_row)
 
-            # Export the image to the zip archive if available
-            if r.garden_image_file:
-                if r.cmp_image_file:
-                    image = r.cmp_image_file.decode('base64')
-                elif image_name and image_name.rsplit('.')[-1] in ['png', 'jpg']:
-                    _logger.error("Computed-Image missing for garden: ID %s Image %s" % (r.id, r.garden_image_name))
-                    image = r.garden_image_file.decode('base64')
-                else:
-                    _logger.error("Image error for garden: ID %s Image %s" % (r.id, r.garden_image_name))
-                    image = None
-                if image:
-                    zip_archive.writestr(image_name, image)
+            # EXPORT IMAGE V2 (hopefully this will save memory)
+            if image_name:
+                zip_archive.writestr(image_name,
+                                     base64.b64decode(r.cmp_image_file if r.cmp_image_file else r.garden_image_file))
 
         # Add the finished CSV file to the zip archive
         csv_temp_file.seek(0)
         zip_archive.writestr('garteneintraege.csv', csv_temp_file.read())
 
-        # Close and therfore delete the csv temp file
+        # Close and therefore delete the csv temp file
         csv_temp_file.close()
 
         # Close the zip archive to write all needed information to the archive
         _logger.info("gl2k_garden_zipexport() Export as zip archive with files %s" % zip_archive.namelist())
         zip_archive.close()
 
-        # Prepare the response object
-        response = werkzeug.wrappers.Response()
-        response.content_type = "application/zip"
-        response.mimetype = "application/zip"
-        response.headers['Content-Disposition'] = 'attachment; filename="garden.zip"'
-        #response.direct_passthrough = True
-
-        # Add the file data to the response object
-        # TODO: ATTENTION: The file is read completely in memory!
+        # Stream the zip file to the client
+        # https://stackoverflow.com/questions/5166129/how-do-i-stream-a-file-using-werkzeug
+        # HINT: The zip_temp_file will automatically be closed and removed from the hard drive!
+        zip_temp_file_size = str(zip_temp_file.tell())
         zip_temp_file.seek(0)
-        data = zip_temp_file.read()
-        response.data = data
-
-        # Close (and therefore remove) the tempfile
-        zip_temp_file.close()
-
-        return response
+        return werkzeug.wrappers.Response(
+            zip_temp_file,
+            content_type="application/zip",
+            mimetype='application/octet-stream',
+            headers=[
+                ('Content-Length', zip_temp_file_size),
+                ('Content-Disposition', 'attachment; filename="garden.zip"'),
+            ],
+            direct_passthrough=True
+        )
 
 
 class FsoFormsGL2KGardenVis(FsoForms):

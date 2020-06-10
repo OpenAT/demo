@@ -1,0 +1,5 @@
+/* FONT TESTS */
+@font-face {
+    font-family: Humanist 777 W01 Light;
+    src: url("fonts/humanist-777-light-bt.ttf") format("truetype");
+}
